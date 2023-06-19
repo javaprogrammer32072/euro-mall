@@ -5,10 +5,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 
-
 // User Frontend Routes 
 Route::get("signup",[RegistrationController::class,"register"]);
 Route::get("signin",[RegistrationController::class,"login"]);
+Route::post('dashboardlogin',[RegistrationController::class,"processLogin"])->name('dashboardlogin');
 Route::get("dashboard",[UserDashboardController::class,"index"]);
 Route::get('/', function () {
     return view('welcome');
