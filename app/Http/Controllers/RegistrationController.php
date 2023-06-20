@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
-use Auth;
-use Session;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Registration;
@@ -28,7 +28,7 @@ class RegistrationController extends Controller
             'password' => 'required'
         );
         $messages = array(
-            'user_id.required' => 'User ID  address is required',
+            'user_id.required' => 'User ID is required',
             'password.required' => 'Password is required',
         );
 
@@ -66,8 +66,13 @@ class RegistrationController extends Controller
                 return redirect()->back()->with('error', $message)->withInput();
             }
         
- 
-    
+    }
 
+    //create logout function 
+    public function logout(): RedirectResponse
+    {
+        Session::flush();
+        // Perform any other necessary cleanup or logout actions
+        return redirect()->route('signin');
     }
 }

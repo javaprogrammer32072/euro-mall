@@ -54,15 +54,16 @@
                             <div class="col-md-8 col-lg-7 col-xl-6 mx-auto">
                                 <h2>Sign In</h2>
                                 <p class="m-b-30">Enter your credential to get access</p>
-                                @if(session()->has('error'))
-                                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <strong>Oh snap! </strong>{{ session()->get('error') }}
-                                </div>
+                                @if (session()->has('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <strong>Oh snap! </strong>{{ session()->get('error') }}
+                                    </div>
                                 @endif
-                                <form method="POST" class="form-horizontal mt-4" action="{{ route('dashboardlogin') }}">
+                                <form method="POST" class="form-horizontal mt-4"
+                                    action="{{ route('dashboardlogin') }}">
                                     @csrf
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="userName">Userid:</label>
@@ -74,15 +75,16 @@
                                                 placeholder="Userid" required autocomplete="User_id" autofocus
                                                 placeholder="User_id">
                                             @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="password">Password:</label>
-                                        <a class="float-right font-size-13 text-muted" href="#">Forget Password?</a>
+                                        <a class="float-right font-size-13 text-muted" href="#">Forget
+                                            Password?</a>
                                         <div class="input-affix m-b-10">
                                             <i class="prefix-icon anticon anticon-lock"></i>
                                             <input id="password" type="password"
@@ -90,9 +92,9 @@
                                                 name="password" required autocomplete="current-password"
                                                 placeholder="Password">
                                             @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                             @enderror
                                         </div>
                                     </div>

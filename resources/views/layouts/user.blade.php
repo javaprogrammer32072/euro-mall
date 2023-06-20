@@ -140,7 +140,7 @@
                                             <p class="m-b-0 text-dark font-weight-semibold">
                                                 {{ $user['first_name'] }} {{ $user['last_name'] }}
                                             </p>
-                                            <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                            <p class="m-b-0 opacity-07">{{ $user['email'] }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                                <a href="{{ route('logout') }}" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
