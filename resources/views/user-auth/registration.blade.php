@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Enlink - Admin Dashboard Template</title>
+    <title>Euro -Mall</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/logo/favicon.png">
@@ -50,30 +50,59 @@
                             <div class="col-md-8 col-lg-7 col-xl-6 mx-auto">
                                 <h2>Sign Up</h2>
                                 <p class="m-b-30">Create your account to get access</p>
-                                <form>
-                                    <div class="form-group">
-                                        <label class="font-weight-semibold" for="userName">Username:</label>
-                                        <input type="text" class="form-control" id="userName" placeholder="Username">
+                                <form action="{{url('signup')}}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="font-weight-semibold" for="userName">First Name:</label>
+                                                <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+                                            </div>
+                                            <p class="text-danger">{{$errors->first("fname")}}</p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="font-weight-semibold" for="userName">Last Name:</label>
+                                                <input type="text" class="form-control" name="lname" id="lname" placeholder="Username">
+                                            </div>
+                                            <p class="text-danger">{{$errors->first("lname")}}</p>
+                                        </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Id">
+                                        <p class="text-danger">{{$errors->first("email")}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold" for="phone">Phone:</label>
+                                        <input type="number" class="form-control" id="phone" placeholder="Phone Number" name="phone">
+                                        <p class="text-danger">{{$errors->first("phone")}}</p>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="password">Password:</label>
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                        <p class="text-danger">{{$errors->first("password")}}</p>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="confirmPassword">Confirm Password:</label>
-                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+                                        <p class="text-danger">{{$errors->first("confirmPassword")}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold" for="referral_code">Referral Code:</label>
+                                        <input type="text" class="form-control" id="referral_code" name="referral_code" placeholder="Referral Code">
+                                        <p class="text-danger">{{$errors->first("referral_code")}}</p>
                                     </div>
                                     <div class="form-group">
                                         <div class="d-flex align-items-center justify-content-between p-t-15">
                                             <div class="checkbox">
-                                                <input id="checkbox" type="checkbox">
+                                                <input id="checkbox" type="checkbox" name="agreement" value="agreement">
                                                 <label for="checkbox"><span>I have read the <a href="#">agreement</a></span></label>
+                                                <p class="text-danger">{{$errors->first("agreement")}}</p>
                                             </div>
-                                            <button class="btn btn-primary">Sign In</button>
+                                            
+                                            <button class="btn btn-primary">Sign Up</button>
                                         </div>
                                     </div>
                                 </form>

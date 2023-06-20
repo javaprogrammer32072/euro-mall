@@ -47,9 +47,20 @@
                 <div class="col-lg-8 bg-white">
                     <div class="container h-100">
                         <div class="row no-gutters h-100 align-items-center">
+                           
                             <div class="col-md-8 col-lg-7 col-xl-6 mx-auto">
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <strong>Success: </strong>{{ session()->get('success') }}
+                                    </div>
+                                    <br>
+                                @endif
                                 <h2>Sign In</h2>
                                 <p class="m-b-30">Enter your credential to get access</p>
+                                
                                 <form>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="userName">Username:</label>
