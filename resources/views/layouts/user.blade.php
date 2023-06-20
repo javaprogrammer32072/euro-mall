@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@php
+    $user = Session::get('user');
+@endphp
 
-<!-- Mirrored from www.themenate.net/enlink-bs/dist/index-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:37:38 GMT -->
+<!-- Mirrored from www.themenate.net/EURO-MALL-bs/dist/index-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:37:38 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Enlink - Admin Dashboard Template</title>
+    <title>EURO-MALL - Admin Dashboard Template</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/logo/favicon.png">
@@ -60,7 +64,8 @@
                                 <i class="anticon anticon-bell notification-badge"></i>
                             </a>
                             <div class="dropdown-menu pop-notification">
-                                <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
+                                <div
+                                    class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
                                     <p class="text-dark font-weight-semibold m-b-0">
                                         <i class="anticon anticon-bell"></i>
                                         <span class="m-l-10">Notification</span>
@@ -122,7 +127,7 @@
                         <li class="dropdown dropdown-animated scale-left">
                             <div class="pointer" data-toggle="dropdown">
                                 <div class="avatar avatar-image  m-h-10 m-r-15">
-                                    <img src="assets/images/avatars/thumb-3.jpg"  alt="">
+                                    <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                 </div>
                             </div>
                             <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
@@ -132,8 +137,10 @@
                                             <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                         </div>
                                         <div class="m-l-10">
-                                            <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                                            <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                            <p class="m-b-0 text-dark font-weight-semibold">
+                                                {{ $user['first_name'] }} {{ $user['last_name'] }}
+                                            </p>
+                                            <p class="m-b-0 opacity-07">{{ $user['email'] }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +171,7 @@
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                                <a href="{{ route('logout') }}" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
@@ -182,7 +189,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>    
+            </div>
             <!-- Header END -->
 
             <!-- Side Nav START -->
@@ -277,12 +284,12 @@
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
                                 <span class="icon-holder">
-									<i class="anticon anticon-build"></i>
-								</span>
+                                    <i class="anticon anticon-build"></i>
+                                </span>
                                 <span class="title">UI Elements</span>
                                 <span class="arrow">
-									<i class="arrow-icon"></i>
-								</span>
+                                    <i class="arrow-icon"></i>
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -502,7 +509,7 @@
 
             <!-- Page Container START -->
             <div class="page-container">
-                
+
                 <!-- Content Wrapper START -->
                 <div class="main-content">
                     <div class="row">
@@ -585,14 +592,20 @@
                                     <div class="d-flex align-items-center m-t-20">
                                         <h1 class="m-b-0 m-r-10 font-weight-normal">4.5</h1>
                                         <div class="star-rating m-t-15">
-                                            <input type="radio" id="star1-5" name="rating-1" value="5" checked disabled/><label for="star1-5" title="5 star"></label>
-                                            <input type="radio" id="star1-4" name="rating-1" value="4" disabled/><label for="star1-4" title="4 star"></label>
-                                            <input type="radio" id="star1-3" name="rating-1" value="3" disabled/><label for="star1-3" title="3 star"></label>
-                                            <input type="radio" id="star1-2" name="rating-1" value="2" disabled/><label for="star1-2" title="2 star"></label>
-                                            <input type="radio" id="star1-1" name="rating-1" value="1" disabled/><label for="star1-1" title="1 star"></label>
+                                            <input type="radio" id="star1-5" name="rating-1" value="5"
+                                                checked disabled /><label for="star1-5" title="5 star"></label>
+                                            <input type="radio" id="star1-4" name="rating-1" value="4"
+                                                disabled /><label for="star1-4" title="4 star"></label>
+                                            <input type="radio" id="star1-3" name="rating-1" value="3"
+                                                disabled /><label for="star1-3" title="3 star"></label>
+                                            <input type="radio" id="star1-2" name="rating-1" value="2"
+                                                disabled /><label for="star1-2" title="2 star"></label>
+                                            <input type="radio" id="star1-1" name="rating-1" value="1"
+                                                disabled /><label for="star1-1" title="1 star"></label>
                                         </div>
                                     </div>
-                                    <p><span class="text-success font-weight-bold">+1.5</span> point from last month</p>
+                                    <p><span class="text-success font-weight-bold">+1.5</span> point from last month
+                                    </p>
                                     <div class="m-t-30" style="height: 150px">
                                         <canvas class="chart" id="rating-chart"></canvas>
                                     </div>
@@ -607,7 +620,8 @@
                                         <div class="d-flex">
                                             <div class="m-r-10">
                                                 <span class="badge badge-secondary badge-dot m-r-10"></span>
-                                                <span class="text-gray font-weight-semibold font-size-13">Revenue</span>
+                                                <span
+                                                    class="text-gray font-weight-semibold font-size-13">Revenue</span>
                                             </div>
                                             <div class="m-r-10">
                                                 <span class="badge badge-purple badge-dot m-r-10"></span>
@@ -626,13 +640,15 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Monthly Target</h5>
-                                    </div>  
-                                    <div class="d-flex align-items-center position-relative m-v-50" style="height:150px;">
+                                    </div>
+                                    <div class="d-flex align-items-center position-relative m-v-50"
+                                        style="height:150px;">
                                         <div class="w-100 position-absolute" style="height:150px; top:0;">
                                             <canvas class="chart m-h-auto" id="porgress-chart"></canvas>
                                         </div>
-                                        <h2 class="w-100 text-center text-large m-b-0 text-success font-weight-normal">$3,531</h2>
-                                     </div>
+                                        <h2 class="w-100 text-center text-large m-b-0 text-success font-weight-normal">
+                                            $3,531</h2>
+                                    </div>
                                     <div class="d-flex justify-content-center align-items-center">
                                         <span class="badge badge-success badge-dot m-r-10"></span>
                                         <span><span class="font-weight-semibold">70%</span> of Your Goal</span>
@@ -669,8 +685,10 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
-                                                                    <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                                        <img src="assets/images/avatars/thumb-1.jpg" alt="">
+                                                                    <div class="avatar avatar-image"
+                                                                        style="height: 30px; min-width: 30px; max-width:30px">
+                                                                        <img src="assets/images/avatars/thumb-1.jpg"
+                                                                            alt="">
                                                                     </div>
                                                                     <h6 class="m-l-10 m-b-0">Erin Gonzales</h6>
                                                                 </div>
@@ -680,7 +698,8 @@
                                                         <td>$137.00</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge badge-success badge-dot m-r-10"></span>
+                                                                <span
+                                                                    class="badge badge-success badge-dot m-r-10"></span>
                                                                 <span>Approved</span>
                                                             </div>
                                                         </td>
@@ -690,8 +709,10 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
-                                                                    <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                                        <img src="assets/images/avatars/thumb-2.jpg" alt="">
+                                                                    <div class="avatar avatar-image"
+                                                                        style="height: 30px; min-width: 30px; max-width:30px">
+                                                                        <img src="assets/images/avatars/thumb-2.jpg"
+                                                                            alt="">
                                                                     </div>
                                                                     <h6 class="m-l-10 m-b-0">Darryl Day</h6>
                                                                 </div>
@@ -701,7 +722,8 @@
                                                         <td>$322.00</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge badge-success badge-dot m-r-10"></span>
+                                                                <span
+                                                                    class="badge badge-success badge-dot m-r-10"></span>
                                                                 <span>Approved</span>
                                                             </div>
                                                         </td>
@@ -711,8 +733,10 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
-                                                                    <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                                        <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                                                                    <div class="avatar avatar-image"
+                                                                        style="height: 30px; min-width: 30px; max-width:30px">
+                                                                        <img src="assets/images/avatars/thumb-3.jpg"
+                                                                            alt="">
                                                                     </div>
                                                                     <h6 class="m-l-10 m-b-0">Marshall Nichols</h6>
                                                                 </div>
@@ -722,7 +746,8 @@
                                                         <td>$543.00</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge badge-success badge-dot m-r-10"></span>
+                                                                <span
+                                                                    class="badge badge-success badge-dot m-r-10"></span>
                                                                 <span>Approved</span>
                                                             </div>
                                                         </td>
@@ -732,8 +757,10 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
-                                                                    <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                                        <img src="assets/images/avatars/thumb-4.jpg" alt="">
+                                                                    <div class="avatar avatar-image"
+                                                                        style="height: 30px; min-width: 30px; max-width:30px">
+                                                                        <img src="assets/images/avatars/thumb-4.jpg"
+                                                                            alt="">
                                                                     </div>
                                                                     <h6 class="m-l-10 m-b-0">Virgil Gonzales</h6>
                                                                 </div>
@@ -743,7 +770,8 @@
                                                         <td>$876.00</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge badge-primary badge-dot m-r-10"></span>
+                                                                <span
+                                                                    class="badge badge-primary badge-dot m-r-10"></span>
                                                                 <span>Pending</span>
                                                             </div>
                                                         </td>
@@ -753,8 +781,10 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="d-flex align-items-center">
-                                                                    <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                                        <img src="assets/images/avatars/thumb-5.jpg" alt="">
+                                                                    <div class="avatar avatar-image"
+                                                                        style="height: 30px; min-width: 30px; max-width:30px">
+                                                                        <img src="assets/images/avatars/thumb-5.jpg"
+                                                                            alt="">
                                                                     </div>
                                                                     <h6 class="m-l-10 m-b-0">Nicole Wyne</h6>
                                                                 </div>
@@ -764,7 +794,8 @@
                                                         <td>$241.00</td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge badge-success badge-dot m-r-10"></span>
+                                                                <span
+                                                                    class="badge badge-success badge-dot m-r-10"></span>
                                                                 <span>Approved</span>
                                                             </div>
                                                         </td>
@@ -817,7 +848,8 @@
                                         <i class="anticon anticon-file-excel"></i>
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Quater Report.exl</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Quater Report.exl</a>
                                         <p class="m-b-0 text-muted font-size-13">by Finance</p>
                                     </div>
                                 </div>
@@ -826,7 +858,8 @@
                                         <i class="anticon anticon-file-word"></i>
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Documentaion.docx</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Documentaion.docx</a>
                                         <p class="m-b-0 text-muted font-size-13">by Developers</p>
                                     </div>
                                 </div>
@@ -835,7 +868,8 @@
                                         <i class="anticon anticon-file-text"></i>
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Recipe.txt</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Recipe.txt</a>
                                         <p class="m-b-0 text-muted font-size-13">by The Chef</p>
                                     </div>
                                 </div>
@@ -844,7 +878,8 @@
                                         <i class="anticon anticon-file-pdf"></i>
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Project Requirement.pdf</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Project Requirement.pdf</a>
                                         <p class="m-b-0 text-muted font-size-13">by Project Manager</p>
                                     </div>
                                 </div>
@@ -856,7 +891,9 @@
                                         <img src="assets/images/avatars/thumb-1.jpg" alt="">
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Erin Gonzales</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Erin
+                                            Gonzales</a>
                                         <p class="m-b-0 text-muted font-size-13">UI/UX Designer</p>
                                     </div>
                                 </div>
@@ -865,7 +902,8 @@
                                         <img src="assets/images/avatars/thumb-2.jpg" alt="">
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Darryl Day</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Darryl Day</a>
                                         <p class="m-b-0 text-muted font-size-13">Software Engineer</p>
                                     </div>
                                 </div>
@@ -874,26 +912,28 @@
                                         <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Marshall Nichols</a>
+                                        <a href="javascript:void(0);"
+                                            class="text-dark m-b-0 font-weight-semibold">Marshall Nichols</a>
                                         <p class="m-b-0 text-muted font-size-13">Data Analyst</p>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="m-t-30">
-                                <h5 class="m-b-20">News</h5> 
+                                <h5 class="m-b-20">News</h5>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
                                         <img src="assets/images/others/img-1.jpg" alt="">
                                     </div>
                                     <div class="m-l-15">
-                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">5 Best Handwriting Fonts</a>
+                                        <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">5
+                                            Best Handwriting Fonts</a>
                                         <p class="m-b-0 text-muted font-size-13">
                                             <i class="anticon anticon-clock-circle"></i>
                                             <span class="m-l-5">25 Nov 2018</span>
                                         </p>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -913,19 +953,23 @@
                                 <p>Config header background color</p>
                                 <div class="theme-configurator d-flex m-t-10">
                                     <div class="radio">
-                                        <input id="header-default" name="header-theme" type="radio" checked value="default">
+                                        <input id="header-default" name="header-theme" type="radio" checked
+                                            value="default">
                                         <label for="header-default"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-primary" name="header-theme" type="radio" value="primary">
+                                        <input id="header-primary" name="header-theme" type="radio"
+                                            value="primary">
                                         <label for="header-primary"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-success" name="header-theme" type="radio" value="success">
+                                        <input id="header-success" name="header-theme" type="radio"
+                                            value="success">
                                         <label for="header-success"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-secondary" name="header-theme" type="radio" value="secondary">
+                                        <input id="header-secondary" name="header-theme" type="radio"
+                                            value="secondary">
                                         <label for="header-secondary"></label>
                                     </div>
                                     <div class="radio">
@@ -954,13 +998,13 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             </div>
             <!-- Quick View END -->
         </div>
     </div>
 
-    
+
     <!-- Core Vendors JS -->
     <script src="assets/js/vendors.min.js"></script>
 
@@ -974,5 +1018,6 @@
 </body>
 
 
-<!-- Mirrored from www.themenate.net/enlink-bs/dist/index-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:37:51 GMT -->
+<!-- Mirrored from www.themenate.net/EURO-MALL-bs/dist/index-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:37:51 GMT -->
+
 </html>

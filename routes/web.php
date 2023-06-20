@@ -8,9 +8,13 @@ use App\Http\Controllers\UserDashboardController;
 // User Auth Routes 
 Route::get("signup",[RegistrationController::class,"register"]);
 Route::post("signup",[RegistrationController::class,"registerPost"]);
-Route::get("signin",[RegistrationController::class,"login"]);
+Route::get('logout', [RegistrationController::class,"logout"])->name('logout');
+Route::get("signin",[RegistrationController::class,"login"])->name('signin');
+Route::get("signup",[RegistrationController::class,"register"]);
+Route::post('dashboardlogin',[RegistrationController::class,"processLogin"])->name('dashboardlogin');
 
 
+// User Frontend Routes 
 Route::get("dashboard",[UserDashboardController::class,"index"]);
 
 // Admin Panel Routes 
