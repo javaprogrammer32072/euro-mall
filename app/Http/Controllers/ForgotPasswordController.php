@@ -36,12 +36,7 @@ class ForgotPasswordController extends Controller
           ]);
   
           $token = Str::random(64);
-        
-            // $token = Registration::where('email', $request->email);
-            // echo'<pre>';
-            // print_r($token);
-            // die;
-  
+            
           DB::table('password_resets')->insert([
               'email' => $request->email, 
               'token' => $token, 
@@ -69,30 +64,37 @@ class ForgotPasswordController extends Controller
        *
        * @return response()
        */
-      public function submitResetPasswordForm(Request $request)
-      {
-          $request->validate([
-              'email' => 'required|email|exists:registration',
-              'password' => 'required|string|min:8|confirmed',
-              'password_confirmation' => 'required'
-          ]);
-  
-          $updatePassword = DB::table('password_resets')
-                              ->where([
-                                'email' => $request->email, 
-                                'token' => $request->token
-                              ])
-                              ->first();
-  
-          if(!$updatePassword){
-              return back()->withInput()->with('error', 'Invalid token!');
-          }
-  
-          $user = Registration::where('email', $request->email)
-            ->update(['password' => Hash::make($request->password)]);
- 
-          DB::table('password_resets')->where(['email'=> $request->email])->delete();
-  
-          return redirect('/signin')->with('success', 'Your password has been changed!');
-      }
+        public function submitResetPasswordForm(Request $request)
+        {
+            $request->validate([
+                'email' => 'required|email|exists:registration',
+                'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required'
+            ]);
+    
+            $updatePassword = DB::table('password_resets')->where(['email' => $request->email, 'token' => $request->token ]) ->first();
+            $data =  DB::table('password_resets')->where('email', $request->email)->first();
+            $date = Carbon::parse($data->created_at);
+            $now = Carbon::now();
+
+            $timeDifference = $now->diffInMinutes($date);
+
+            if ($timeDifference > 10) {
+                DB::table('password_resets')->where(['email'=> $request->email])->delete();
+                return back()->withInput()->with('error', 'Link Has Been Expired!');
+            } else 
+            {
+                // Proceed with the code here
+                if(!$updatePassword){
+                    return back()->withInput()->with('error', 'Invalid token!');
+                }
+        
+                $user = Registration::where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password)]);
+        
+                DB::table('password_resets')->where(['email'=> $request->email])->delete();
+        
+                return redirect('/signin')->with('success', 'Your password has been changed!');
+            }
+        }
 }

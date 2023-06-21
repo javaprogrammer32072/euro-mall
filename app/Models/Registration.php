@@ -51,7 +51,11 @@ class Registration extends Model
         $u->referral_left = strtoupper($left_referral);
         $u->referral_right = strtoupper($right_referral);
         $u->save();
-        return true;
+        return [
+            'id' => $user->id,
+            'email' => $user->email
+        ];
+
     }
 
     public static function editprofile($req)
@@ -71,13 +75,4 @@ class Registration extends Model
         return true;
     }
 
-
-
-    public static function sendmail()
-    {
-        $otp = mt_rand(1000, 9999);
-        $expire_time = now();
-        $res = Registration::where('userid', $res->id)->update(['otp' => $otp,'expire_time' => $expire_time]);
-        
-    }
 }
