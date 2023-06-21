@@ -24,11 +24,14 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
 Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
 Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
+
+// Registration OTP Check Routes 
 Route::get("/otp",[RegistrationController::class,"otp"])->name('opt');
 Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
 
-
-
+// Transaction Password Change Routes 
+Route::get("/transaction_password",[UserDashboardController::class,"transaction_password"])->name('transaction_password');
+// Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
 
 // Admin Panel Routes 
 Auth::routes();

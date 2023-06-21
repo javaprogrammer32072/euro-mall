@@ -44,7 +44,7 @@ class RegistrationController extends Controller
                 $message->to($emailToSend);
                 $message->subject('Mail from EuroMall');
             });
-            $req->session()->flash("success","Successfully User Created, Please Verify Email.");
+            $req->session()->flash("success","User Created Successfully, Please Verify Email.");
             return redirect("/otp");
 
         }else
@@ -71,10 +71,10 @@ class RegistrationController extends Controller
         $now = Carbon::now();
         $timeDifference = $now->diffInMinutes($date);
         if ($timeDifference > 15) {
-            Registration::where(['userid'=> $updatePassword->userid])->update(['is_verify' => 1]);
             return back()->withInput()->with('error', 'Link Has Been Expired!');
         }else
         {
+            Registration::where(['userid'=> $updatePassword->userid])->update(['is_verify' => 1]);
             $req->session()->flash("success","OTP Verfied Successfully !.");
             return redirect("/signin");
         }
