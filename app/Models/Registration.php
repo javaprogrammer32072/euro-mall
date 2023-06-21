@@ -55,4 +55,31 @@ class Registration extends Model
         $u->save();
         return true;
     }
+
+    public static function editprofile($req)
+    {
+        $user = new Registration(); // Instantiate the Registration class
+        $user->userid = $req['user_id'];
+        $edit_array = array(
+            'first_name' => $req['fname'],
+            'last_name' => $req['lname'],
+            'email' => $req['email'],
+            'phone' => $req['phone'],
+            'updated_at' => now()
+        );   
+    
+        $res = Registration::where('userid', $user->userid);
+        $data = $res->update($edit_array);
+        return true;
+    }
+
+
+
+    public static function sendmail()
+    {
+        $otp = mt_rand(1000, 9999);
+        $expire_time = now();
+        $res = Registration::where('userid', $res->id)->update(['otp' => $otp,'expire_time' => $expire_time]);
+        
+    }
 }

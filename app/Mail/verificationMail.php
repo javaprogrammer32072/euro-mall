@@ -18,7 +18,7 @@ class verificationMail extends Mailable
      */
     public function __construct()
     {
-        //
+         //
     }
 
     /**
@@ -28,6 +28,9 @@ class verificationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+
+         return $this->subject('Mail from EuroMall.com')
+                    ->view('emails.myTestMail');
+        // return $this->view('view.name');
     }
 }

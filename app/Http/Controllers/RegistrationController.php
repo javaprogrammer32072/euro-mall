@@ -29,8 +29,41 @@ class RegistrationController extends Controller
             "agreement"=>"required"
         ]);
         $res = Registration::createUser($req->all());
-        $req->session()->flash("success","Successfully User Created, Please Verify Email.");
-        return redirect("/signin");
+        if(!empty($res))
+        {
+            $email = $req['email'];
+            $sendmail = Registration::sendmail();
+            $this->subject('Mail from EuroMall')->view('emails.myTestMail');
+        }else
+        {
+            $req->session()->flash("success","Successfully User Created, Please Verify Email.");
+            return redirect("/signin");
+        }
+    }
+
+    function edit_profile(request $req)
+    {
+        $user = Session::get('user');
+        $editprofile = Registration::where('userid',$user['userid'])->first();
+        return view('user-auth.edit_profile',compact('editprofile'));
+    }
+     function edit_profilePost(Request $req)
+    {
+       
+        $data= $req->validate([
+            "user_id"=>"required",                
+            "fname"=>"required|min:3|max:50",
+            "lname"=>"required|min:3|max:50",
+            "email"=>"required|email",
+            "phone"=>"required|min:10|max:10",
+        ]);
+
+        $res = Registration::editprofile($req->all());
+        if(!empty($res))
+        {
+            $req->session()->flash("success","Edit User Profile Successfully.");
+            return redirect("/edit-profile");
+        }
     }
     function login(request $req)
     {
