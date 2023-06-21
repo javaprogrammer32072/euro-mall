@@ -30,6 +30,7 @@ class Registration extends Model
         $right_parent =$p_user->right_parent;
         $left_referral = $user->id.substr(uniqid(),5)."L";
         $right_referral = $user->id.substr(uniqid(),5)."R";
+        $userid = "EM".$user->id.substr(uniqid(),6);
 
         // Check Referral code giver user referral code is left referral code or left referral code 
         if($p_user->referral_right==$req['referral_code'])
@@ -44,6 +45,7 @@ class Registration extends Model
         }
         // Now Save User Information 
         $u = Registration::find($user->id);
+        $u->userid =strtoupper($userid);
         $u->parent_id = $parent_id;
         $u->position = $pos;
         $u->left_parent = $left_parent;
