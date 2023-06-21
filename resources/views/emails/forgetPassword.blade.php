@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from www.themenate.net/EURO-MALL-bs/dist/login-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:39:30 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

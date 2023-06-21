@@ -13,10 +13,11 @@
 <div class="app">
     <div class="container-fluid p-0 h-100">
         <div class="row no-gutters h-100 full-height">
-            <div class="col-lg-4 d-none d-lg-flex bg" style="background-image:url('assets/images/others/login-1.jpg')">
+            <div class="col-lg-4 d-none d-lg-flex bg"
+                style="background-image:url('{{ URL::asset('/assets/images/others/login-1.jpg') }}')">
                 <div class="d-flex h-100 p-h-40 p-v-15 flex-column justify-content-between">
                     <div>
-                        <img src="assets/images/logo/logo-white.png" alt="">
+                        <img src="{{ URL::asset('/assets/images/logo/logo-white.png') }}" alt="">
                     </div>
                     <div>
                         <h1 class="text-white m-b-20 font-weight-normal">Exploring EURO-MALL</h1>
@@ -62,26 +63,40 @@
                             @endif
                             <p class="m-b-30">Enter your Email to get Reset Password</p>
 
-                            <form action="{{ route('forget.password.post') }}" method="POST">
+                            <form action="{{ route('reset.password.post') }}" method="POST">
                                 @csrf
-                                <div class="form-group">
-                                    <label class="font-weight-semibold" for="userName">Email Address:</label>
-                                    <div class="input-affix">
-                                        <i class="prefix-icon anticon anticon-user"></i>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="Email" required>
-                                        @if ($errors->has('email'))
-                                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                                        @endif
+                                <input type="hidden" name="token" value="{{ $token }}">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold" for="userName">Email Address:</label>
+                                        <input type="text" id="email_address" class="form-control" name="email"
+                                            required autofocus>
+                                        <p class="text-danger">{{ $errors->first('email') }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold" for="userName">Password:</label>
+                                        <input type="password" id="password" class="form-control" name="password"
+                                            required autofocus>
+                                        <p class="text-danger">{{ $errors->first('password') }}</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold" for="userName">Confirm Password:</label>
+                                        <input type="password" id="password-confirm" class="form-control"
+                                            name="password_confirmation" required autofocus>
+                                        <p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <span class="font-size-13 text-muted">
-                                            <a class="small" href="{{ route('signin') }}">Login Here</a>
-                                        </span>
-                                        <button class="btn btn-primary">Send Password Reset Link</button>
+
+                                        <button type="submit" class="btn btn-primary">Reset Password</button>
                                     </div>
                                 </div>
                             </form>
@@ -94,11 +109,11 @@
 </div>
 
 <!-- Core Vendors JS -->
-<script src="assets/js/vendors.min.js"></script>
+<script src="{{ URL::asset('/assets/js/vendors.min.js') }}"></script>
 
 <!-- page js -->
 
 <!-- Core JS -->
-<script src="assets/js/app.min.js"></script>
+<script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 
 </html>

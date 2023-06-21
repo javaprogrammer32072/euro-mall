@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
-
+use Carbon\Carbon; 
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use DB;
+use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,14 +30,52 @@ class RegistrationController extends Controller
             "agreement"=>"required"
         ]);
         $res = Registration::createUser($req->all());
-        if(!empty($res))
-        {
-            $email = $req['email'];
-            $sendmail = Registration::sendmail();
-            $this->subject('Mail from EuroMall')->view('emails.myTestMail');
+        $lastInsertId = $res['id'];
+        $email = $res['email'];
+
+        if (!empty($lastInsertId)) {
+            $otp = mt_rand(100000, 999999);
+            $expire_time = now();
+            $request = Registration::where('id', $lastInsertId)->update(['otp' => $otp, 'expire_time' => $expire_time]);
+
+            $emailToSend = $email; // Assign the email to a separate variable
+
+            Mail::send('emails.registration_otp', ['otp' => $otp], function ($message) use ($emailToSend) {
+                $message->to($emailToSend);
+                $message->subject('Mail from EuroMall');
+            });
+            $req->session()->flash("success","Successfully User Created, Please Verify Email.");
+            return redirect("/otp");
+
         }else
         {
-            $req->session()->flash("success","Successfully User Created, Please Verify Email.");
+            $req->session()->flash("error ","Please Try again! .");
+            return redirect("/signin");
+        }
+    }
+    
+    function otp(request $req)
+    {
+        return view("user-auth.otp");
+    }
+
+
+    function otp_check(Request $req){
+
+         $req->validate([
+            "otp"=>"required|min:6|max:6"
+        ]);
+        $updatePassword = Registration::where(['otp' => $req->otp])->first();
+      
+        $date = Carbon::parse($updatePassword->expire_time);
+        $now = Carbon::now();
+        $timeDifference = $now->diffInMinutes($date);
+        if ($timeDifference > 15) {
+            Registration::where(['userid'=> $updatePassword->userid])->update(['is_verify' => 1]);
+            return back()->withInput()->with('error', 'Link Has Been Expired!');
+        }else
+        {
+            $req->session()->flash("success","OTP Verfied Successfully !.");
             return redirect("/signin");
         }
     }

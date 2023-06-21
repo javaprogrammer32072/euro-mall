@@ -24,6 +24,8 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
 Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
 Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
+Route::get("/otp",[RegistrationController::class,"otp"])->name('opt');
+Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
 
 
 
@@ -31,17 +33,3 @@ Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost']
 // Admin Panel Routes 
 Auth::routes();
 Route::get('administrator/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
-
-//Registraion mail Routes
-
-Route::post('sendmail', function () {
-   
-    $details = [
-        'title' => 'Mail from ItSolutionStuff.com',
-        'body' => 'This is for testing email using smtp'
-    ];
-    \Mail::to('ankitplanetweb@gmail.com')->send(new \App\Http\RegistrationController($details));
-   
-    dd("Email is Sent.");
-});
