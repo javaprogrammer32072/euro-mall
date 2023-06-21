@@ -3,14 +3,24 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> @yield('title') | Eour-MALL</title>
+    <title> @yield('title') | EURO-MALL</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Lexa Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('/assets/images/logo/favicon.png') }}">
     <link href="{{ URL::asset('/assets/css/app.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <style>
+        .side-nav-menu .active {
+            background-color: rgba(63, 135, 245, 0.15);
+            border-right: 2px solid #007bff;
+        }
+
+        .side-nav-menu .active a {
+            color: #3f87f5 !important;
+        }
+    </style>
 </head>
 
 <body data-sidebar="dark">
@@ -36,16 +46,16 @@
                     <!-- END layout-wrapper -->
 
                     @include('layouts/partials/rightbar')
-                    <!-- JAVASCRIPT -->
-                    <script src="{{ URL::asset('/assets/js/vendors.min.js') }}"></script>
-                    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
-                    <!-- footerScript -->
-                    <!-- App js -->
-                    @yield('scripts')
                 </div>
             </div>
         </div>
     </div>
+    <!-- JAVASCRIPT -->
+    <script src="{{ URL::asset('/assets/js/vendors.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+    <!-- footerScript -->
+    <!-- App js -->
+    @yield('scripts')
 </body>
 
 </html>

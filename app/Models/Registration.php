@@ -30,7 +30,7 @@ class Registration extends Model
         $right_parent =$p_user->right_parent;
         $left_referral = $user->id.substr(uniqid(),5)."L";
         $right_referral = $user->id.substr(uniqid(),5)."R";
-        $userid = $user->id.substr(uniqid(),5);
+        $userid = "EM".$user->id.substr(uniqid(),6);
 
         // Check Referral code giver user referral code is left referral code or left referral code 
         if($p_user->referral_right==$req['referral_code'])
@@ -77,6 +77,7 @@ class Registration extends Model
 
     public static function sendmail()
     {
+        return true;
         $otp = mt_rand(1000, 9999);
         $expire_time = now();
         $res = Registration::where('userid', $res->id)->update(['otp' => $otp,'expire_time' => $expire_time]);
