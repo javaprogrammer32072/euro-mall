@@ -11,15 +11,17 @@
                 <div class="col-lg-5 col-md-5 col-12">
                     <div class="input-affix m-b-10">
                         <label class="mt-2">Left&nbsp;Referral&nbsp;Link:&nbsp;</label>
-                        <input type="text" class="form-control form-control-sm bg-light " style="border: 2px solid #3f87f5;" readonly value="{{url("/signup")}}">
-                        <i class="suffix-icon anticon anticon-copy fa-lg"></i>
+                        <input type="text" class="form-control form-control-sm bg-light" id="leftReferral"
+                            style="border: 2px solid #3f87f5;" readonly value="{{ url('/signup') }}">
+                        <i class="suffix-icon anticon anticon-copy fa-lg" id="leftButton"></i>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-5 col-12">
                     <div class="input-affix m-b-10">
                         <label class="mt-2">Right&nbsp;Referral&nbsp;Link:&nbsp;</label>
-                        <input type="text" class="form-control form-control-sm bg-light " style="border: 2px solid #3f87f5;" readonly value="{{url("/signup")}}">
-                        <i class="suffix-icon anticon anticon-copy fa-lg"></i>
+                        <input type="text" class="form-control form-control-sm bg-light "
+                            style="border: 2px solid #3f87f5;" id="rightReferral" readonly value="{{ url('/signup') }}">
+                        <i class="suffix-icon anticon anticon-copy fa-lg" id="rightButton"></i>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
@@ -95,9 +97,28 @@
         </div>
         <!-- Content Wrapper END -->
     @endsection
-    
-    @section("scripts")
-    <script>
-        // Copy Referral Code Functionality 
-    </script>
+
+    @section('scripts')
+        <script>
+            $(document).ready(function() {
+                // Copy Left Referral Code
+                $("#leftButton").click(function() {
+                    // Select the text to copy
+                    var copyText = document.getElementById("leftReferral");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999)
+                    document.execCommand("copy");
+                    alert("Left Referral Link Copied");
+                });
+                // Copy Left Referral Code
+                $("#rightButton").click(function() {
+                    // Select the text to copy
+                    var copyText = document.getElementById("rightReferral");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999)
+                    document.execCommand("copy");
+                    alert("Right Referral Link Copied");
+                });
+            });
+        </script>
     @endsection

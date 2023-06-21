@@ -148,7 +148,7 @@ class RegistrationController extends Controller
                 ];
 
                 Session::put('user', $data);
-                return Redirect()->to('/dashboard');
+                return Redirect()->to('/empanel/dashboard');
                 $message = 'Successfully login!';
                 return redirect()->back()->with('success', $message)->withInput();
             }

@@ -80,7 +80,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder"><i class="fas fa-clock-rotate-left fa-solid"></i> </span>
+                    <span class="icon-holder"><i class="fas fa-solid fa-clock-rotate-left"></i> </span>
                     <span class="title">My History</span>
                     <span class="arrow"><i class="arrow-icon"></i> </span>
                 </a>
