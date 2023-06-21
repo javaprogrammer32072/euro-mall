@@ -20,8 +20,12 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+
+Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
+    Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
+});
+
 // User Frontend Routes 
-Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
 Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
 Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
 

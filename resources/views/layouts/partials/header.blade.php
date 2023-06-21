@@ -5,13 +5,13 @@
 <div class="header">
     <div class="logo logo-dark">
         <a href="{{ route('dashboard') }}">
-            <img src="assets/images/logo/logo.png" alt="Logo">
+            <img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo">
             <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo">
         </a>
     </div>
     <div class="logo logo-white">
         <a href="index.html">
-            <img src="assets/images/logo/logo-white.png" alt="Logo">
+            <img src="{{asset('assets/images/logo/logo-white.png')}}" alt="Logo">
             <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo">
         </a>
     </div>
@@ -61,39 +61,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-cyan avatar-icon">
-                                        <i class="anticon anticon-user-add"></i>
-                                    </div>
-                                    <div class="m-l-15">
-                                        <p class="m-b-0 text-dark">New user registered</p>
-                                        <p class="m-b-0"><small>7 hours ago</small></p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-red avatar-icon">
-                                        <i class="anticon anticon-user-add"></i>
-                                    </div>
-                                    <div class="m-l-15">
-                                        <p class="m-b-0 text-dark">System Alert</p>
-                                        <p class="m-b-0"><small>8 hours ago</small></p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="dropdown-item d-block p-15 ">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-gold avatar-icon">
-                                        <i class="anticon anticon-user-add"></i>
-                                    </div>
-                                    <div class="m-l-15">
-                                        <p class="m-b-0 text-dark">You have a new update</p>
-                                        <p class="m-b-0"><small>2 days ago</small></p>
-                                    </div>
-                                </div>
-                            </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -101,7 +69,7 @@
             <li class="dropdown dropdown-animated scale-left">
                 <div class="pointer" data-toggle="dropdown">
                     <div class="avatar avatar-image  m-h-10 m-r-15">
-                        <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                        <img src="{{asset('assets/images/avatars/thumb-3.jpg')}}" alt="">
                     </div>
                 </div>
                 <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
