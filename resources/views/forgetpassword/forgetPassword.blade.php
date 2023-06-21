@@ -66,14 +66,11 @@
                                 @csrf
                                 <div class="form-group">
                                     <label class="font-weight-semibold" for="userName">Email Address:</label>
-                                    <div class="input-affix">
-                                        <i class="prefix-icon anticon anticon-user"></i>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="Email" required>
-                                        @if ($errors->has('email'))
-                                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                                        @endif
-                                    </div>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Email" required>
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
                                 </div>
 
                                 <div class="form-group">
