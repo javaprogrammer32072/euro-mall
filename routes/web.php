@@ -6,6 +6,12 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 
+
+
+Route::get('/', function () {
+    return view('user-auth.login');
+});
+
 // User Auth Routes 
 Route::get("signup",[RegistrationController::class,"register"]);
 Route::post("signup",[RegistrationController::class,"registerPost"]);
