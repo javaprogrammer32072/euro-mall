@@ -11,6 +11,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('/assets/images/logo/favicon.png') }}">
     <link href="{{ URL::asset('/assets/css/app.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('/assets/vendors/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/assets/vendors/datatables/dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/assets/vendors/datatables/buttons.dataTables.min.css') }}" rel="stylesheet">
     <style>
         .side-nav-menu .active {
             background-color: rgba(63, 135, 245, 0.15);
@@ -53,9 +56,42 @@
     <!-- JAVASCRIPT -->
     <script src="{{ URL::asset('/assets/js/vendors.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/jszip.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/pdfmake.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/vfs_fonts.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables/buttons.html5.min.js') }}"></script>
+    {{-- <script src="{{ URL::asset('/assets/vendors/datatables/buttons.print.min.js') }}"></script> --}}
     <!-- footerScript -->
     <!-- App js -->
     @yield('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                dom: 'Blfrtip',
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, 'All']
+                ],
+                buttons: [{
+                        extend: 'excelHtml5',
+                        text: 'Excel'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV'
+                    }
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html>

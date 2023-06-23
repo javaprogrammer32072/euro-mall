@@ -30,6 +30,23 @@
                     </div>
                 </div>
             </div>
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Success: </strong>{{ session()->get('success') }}
+                </div>
+                <br>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Oh snap! </strong>{{ session()->get('error') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6 col-lg-3">
                     <div class="card">

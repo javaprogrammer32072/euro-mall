@@ -6,6 +6,12 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 
+
+
+Route::get('/', function () {
+    return view('user-auth.login');
+});
+
 // User Auth Routes 
 Route::get("signup",[RegistrationController::class,"register"]);
 Route::post("signup",[RegistrationController::class,"registerPost"]);
@@ -20,20 +26,27 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+// Registration OTP Check Routes 
+    Route::get("/otp",[RegistrationController::class,"otp"])->name('opt');
+    Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
 
 Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
     Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
+    // User Frontend Routes 
+    Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
+    Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
+
+    // Transaction Password Change Routes 
+    Route::get("/transaction_password",[UserDashboardController::class,"transaction_password"])->name('transaction_password');
+    Route::post('/transaction_passwords', [UserDashboardController::class, 'transaction_passwords'])->name('transaction_passwords');
+    Route::get("/transaction_otp",[UserDashboardController::class,"transaction_otp"])->name('transaction_otp');
+    Route::post("/transaction_password_check",[UserDashboardController::class,"transaction_password_check"])->name('transaction_password_check');
+
+    //My Referral Routes
+    Route::get("/my_referral",[UserDashboardController::class,"my_referral"])->name('my_referral');
+     Route::get("/my_team",[UserDashboardController::class,"my_team"])->name('my_team');
+
 });
-
-// User Frontend Routes 
-Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
-Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
-Route::get("/otp",[RegistrationController::class,"otp"])->name('opt');
-Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
-
-
-
-
 // Admin Panel Routes 
 Auth::routes();
 Route::get('administrator/dashboard', [DashboardController::class, 'index'])->middleware('auth');

@@ -60,7 +60,7 @@
                                 <h5 class="m-b-20">Members</h5>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
-                                        <img src="assets/images/avatars/thumb-1.jpg" alt="">
+                                        <img src="{{ asset('assets/images/avatars/thumb-1.jpg') }}" alt="">
                                     </div>
                                     <div class="m-l-15">
                                         <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">Erin
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
-                                        <img src="assets/images/avatars/thumb-2.jpg" alt="">
+                                        <img src="{{ asset('assets/images/avatars/thumb-2.jpg') }}" alt="">
                                     </div>
                                     <div class="m-l-15">
                                         <a href="javascript:void(0);"
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
-                                        <img src="assets/images/avatars/thumb-3.jpg" alt="">
+                                        <img src="{{ asset('assets/images/avatars/thumb-3.jpg') }}" alt="">
                                     </div>
                                     <div class="m-l-15">
                                         <a href="javascript:void(0);"
@@ -93,7 +93,7 @@
                                 <h5 class="m-b-20">News</h5>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
-                                        <img src="assets/images/others/img-1.jpg" alt="">
+                                        <img src="{{ asset('assets/images/others/img-1.jpg') }}" alt="">
                                     </div>
                                     <div class="m-l-15">
                                         <a href="javascript:void(0);" class="text-dark m-b-0 font-weight-semibold">5
