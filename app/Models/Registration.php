@@ -46,10 +46,10 @@ class Registration extends Model
         // Now Save User Information 
         $u = Registration::find($user->id);
         $u->userid =strtoupper($userid);
-        $u->parent_id = $parent_id;
+        $u->parent_id = ltrim($parent_id,',');
         $u->position = $pos;
-        $u->left_parent = $left_parent;
-        $u->right_parent = $right_parent;
+        $u->left_parent = ltrim($left_parent,',');
+        $u->right_parent = ltrim($right_parent,',');
         $u->referral_left = strtoupper($left_referral);
         $u->referral_right = strtoupper($right_referral);
         $u->save();
@@ -75,6 +75,13 @@ class Registration extends Model
         $res = Registration::where('userid', $user->userid);
         $data = $res->update($edit_array);
         return true;
+    }
+
+    // Get User Details Function 
+    public static function getUserDetails($userid)
+    {
+        return Registration::where("userid",'=',$userid)
+        ->select("id",'first_name',"last_name","phone","email","userid","referral_left","referral_right")->first();
     }
 
 }

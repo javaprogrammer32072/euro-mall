@@ -12,7 +12,7 @@
                     <div class="input-affix m-b-10">
                         <label class="mt-2">Left&nbsp;Referral&nbsp;Link:&nbsp;</label>
                         <input type="text" class="form-control form-control-sm bg-light" id="leftReferral"
-                            style="border: 2px solid #3f87f5;" readonly value="{{ url('/signup') }}">
+                            style="border: 2px solid #3f87f5;" readonly value="{{ url('/signup?ref='.$user->referral_left) }}">
                         <i class="suffix-icon anticon anticon-copy fa-lg" id="leftButton"></i>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="input-affix m-b-10">
                         <label class="mt-2">Right&nbsp;Referral&nbsp;Link:&nbsp;</label>
                         <input type="text" class="form-control form-control-sm bg-light "
-                            style="border: 2px solid #3f87f5;" id="rightReferral" readonly value="{{ url('/signup') }}">
+                            style="border: 2px solid #3f87f5;" id="rightReferral" readonly value="{{ url('/signup?ref='.$user->referral_right) }}">
                         <i class="suffix-icon anticon anticon-copy fa-lg" id="rightButton"></i>
                     </div>
                 </div>

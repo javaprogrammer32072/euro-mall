@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="referral_code">Referral Code:</label>
-                                        <input type="text" class="form-control" id="referral_code"
+                                        <input type="text" class="form-control form-control-plaintext" readonly value="{{Request::get("ref")}}" id="referral_code"
                                             name="referral_code" placeholder="Referral Code">
                                         <p class="text-danger">{{ $errors->first('referral_code') }}</p>
                                     </div>

@@ -3,7 +3,7 @@
       <div class="side-nav-inner">
           <ul class="side-nav-menu scrollable">
               <li class="nav-item active">
-                  <a class="" href="{{ url('dashboard') }}">
+                  <a class="" href="{{ url('empanel/dashboard') }}">
                       <span class="icon-holder">
                           <i class="anticon anticon-dashboard"></i>
                       </span>
