@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon; 
@@ -11,6 +12,7 @@ use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserDashboardController extends Controller
 {
@@ -85,26 +87,97 @@ class UserDashboardController extends Controller
     }
 
     // Start MY Referral View Page 
-   function my_referral()
-    {
+//    function my_referral()
+//     {
+//         $user = Session::get('user');
+//         $userreferral = Registration::where('userid', $user['userid'])->first();
+//         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
+//             ->orWhere('referral_code', $userreferral['referral_right'])
+//             ->orWhere('referral_code', $userreferral['referral_left'])
+//             ->get();
+//          return view("user-auth.my-referral");
+//     }
+
+
+// public function my_referral(Request $request)
+// {
+//     if ($request->ajax()) {
+//         $user = Session::get('user');
+//         $userreferral = Registration::where('userid', $user['userid'])->first();
+
+//         // Retrieve the necessary data for the DataTable
+//         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+//             ->where('referral_code', $userreferral['referral_right'])
+//             ->orWhere('referral_code', $userreferral['referral_left'])
+//             ->get();
+
+//         // Build the DataTable response
+//         $response = [
+//             'draw' => $request->input('draw'),
+//             'recordsTotal' => $data->count(),
+//             'recordsFiltered' => $data->count(),
+//             'data' => $data
+//         ];
+
+//         return response()->json($response);
+//     }
+
+//     return view("user-auth.my-referral");
+// }
+
+public function my_referral(Request $request)
+{
+    if ($request->ajax()) {
         $user = Session::get('user');
         $userreferral = Registration::where('userid', $user['userid'])->first();
-        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
-            ->orWhere('referral_code', $userreferral['referral_right'])
-            ->orWhere('referral_code', $userreferral['referral_left'])
-            ->get();
-        return view("user-auth.my-referral", compact('data'));
+
+        // Retrieve the necessary data for the DataTable
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+            ->where('referral_code', $userreferral['referral_right'])
+            ->orWhere('referral_code', $userreferral['referral_left']);
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
     }
 
+    return view('user-auth.my-referral');
+}
+public function my_team(Request $request)
+{
+    if ($request->ajax()) {
+    $user = Session::get('user');
+    $userReferral = Registration::where('userid', $user['userid'])->first();
+    $searchValue = $userReferral['id'];
+
+    $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+        ->whereRaw('FIND_IN_SET("'.$searchValue.'", parent_id)');
+
+    return DataTables::of($data)
+        ->addIndexColumn()
+        ->toJson();
+    }
+     return view('user-auth.my-team');
+}
      // Start MY Team View Page 
-    function my_team()
-    {
-        $user = Session::get('user');
-        $userReferral = Registration::where('userid', $user['userid'])->first();
-        $searchValue = $userReferral['id'];
-        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
-        ->whereRaw('FIND_IN_SET("'.$searchValue.'",parent_id)')->get();
-        return view("user-auth.my-team", compact('data'));
+    // function my_team()
+    // {
+    //     $user = Session::get('user');
+    //     $userReferral = Registration::where('userid', $user['userid'])->first();
+    //     $searchValue = $userReferral['id'];
+    //     $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
+    //     ->whereRaw('FIND_IN_SET("'.$searchValue.'",parent_id)')->get();
+    //     return view("user-auth.my-team", compact('data'));
+    // }
+
+    // use DataTables;
+
+
+
+
+
+    function my_tree(){
+      return view("user-auth.my-tree");  
     }
 
 }

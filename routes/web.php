@@ -44,7 +44,8 @@ Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
 
     //My Referral Routes
     Route::get("/my_referral",[UserDashboardController::class,"my_referral"])->name('my_referral');
-     Route::get("/my_team",[UserDashboardController::class,"my_team"])->name('my_team');
+    Route::get("/my_team",[UserDashboardController::class,"my_team"])->name('my_team');
+    Route::get("/my_tree",[UserDashboardController::class,"my_tree"])->name('my_tree');
 
 });
 // Admin Panel Routes 
