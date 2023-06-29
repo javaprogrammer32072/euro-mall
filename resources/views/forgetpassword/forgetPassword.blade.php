@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8" />
-    <title> @yield('title') | EURO-MALL</title>
+    <title> @yield('title') | JUST CASE 24</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Lexa Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -19,13 +19,13 @@
                         <img src="assets/images/logo/logo-white.png" alt="">
                     </div>
                     <div>
-                        <h1 class="text-white m-b-20 font-weight-normal">Exploring EURO-MALL</h1>
+                        <h1 class="text-white m-b-20 font-weight-normal">Exploring JUST CASE 24</h1>
                         <p class="text-white font-size-16 lh-2 w-80 opacity-08">Climb leg rub face on everything give
                             attitude nap all day for under the bed. Chase mice attack feet but rub face on everything
                             hopped up.</p>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <span class="text-white">© 2023 EURO-MALL</span>
+                        <span class="text-white">© 2023 JUST CASE 24</span>
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <a class="text-white text-link" href="#">Legal</a>

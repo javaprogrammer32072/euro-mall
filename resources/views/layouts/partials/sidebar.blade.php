@@ -24,7 +24,7 @@
                           <a href="{{ url('/empanel/my_referral') }}"><span>My Referral</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="#"><span>My Team Tree</span> </a>
+                          <a href="{{ url('/empanel/my_tree') }}"><span>My Team Tree</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>My Team Tree</span> </a>
