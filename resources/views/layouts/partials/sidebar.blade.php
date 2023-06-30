@@ -89,7 +89,10 @@
                           <a href="#"><span>Add Fund List</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="#"><span>Investment</span> </a>
+                          <a href="{{ url('/empanel/investment') }}"><span>Investment</span> </a>
+                      </li>
+                      <li class="nav-item ">
+                          <a href="{{ url('/empanel/withdraw') }}"><span>Withdraw</span> </a>
                       </li>
 
                   </ul>

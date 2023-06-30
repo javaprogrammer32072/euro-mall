@@ -5,12 +5,20 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
-
-
+use App\Http\Controllers\FrontController;
 
 Route::get('/', function () {
-    return view('user-auth.login');
+    return view('frontend.index');
 });
+//Frontend Routes 
+Route::get("/about_us",[FrontController::class,"about_us"])->name('about_us');
+Route::get("/all_product",[FrontController::class,"all_product"])->name('all_product');
+Route::get("/cart",[FrontController::class,"cart"])->name('cart');
+Route::get("/contactus",[FrontController::class,"contactus"])->name('contactus');
+Route::get("/privacy_policy",[FrontController::class,"privacy_policy"])->name('privacy_policy');
+Route::get("/returns_policy",[FrontController::class,"returns_policy"])->name('returns_policy');
+Route::get("/single_page",[FrontController::class,"single_page"])->name('single_page');
+Route::get("/wishlist",[FrontController::class,"wishlist"])->name('wishlist');
 
 // User Auth Routes 
 Route::get("signup",[RegistrationController::class,"register"]);
@@ -30,7 +38,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::get("/otp",[RegistrationController::class,"otp"])->name('opt');
     Route::post("/otp_check",[RegistrationController::class,"otp_check"])->name('otp_check');
 
-Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
+    Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
     Route::get("dashboard",[UserDashboardController::class,"index"])->name('dashboard');
     // User Frontend Routes 
     Route::get("/edit-profile",[RegistrationController::class,"edit_profile"])->name('edit_profile');
@@ -46,6 +54,12 @@ Route::group(["prefix"=>"empanel","middleware"=>"CheckUser"],function(){
     Route::get("/my_referral",[UserDashboardController::class,"my_referral"])->name('my_referral');
     Route::get("/my_team",[UserDashboardController::class,"my_team"])->name('my_team');
     Route::get("/my_tree",[UserDashboardController::class,"my_tree"])->name('my_tree');
+    Route::get("/investment",[UserDashboardController::class,"investment"])->name('investment');
+
+
+    //My Withdraw Routes
+    Route::get("/withdraw",[UserDashboardController::class,"withdraw"])->name('withdraw');
+    Route::post("/add_withdraw",[UserDashboardController::class,"add_withdraw"])->name('add_withdraw');
 
 });
 // Admin Panel Routes 
