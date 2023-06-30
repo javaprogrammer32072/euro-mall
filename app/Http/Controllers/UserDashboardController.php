@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon; 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\My_team;
+use App\Models\My_referral;
+use App\Models\Investment;
+
+
 use App\Models\Withdraw;
 use DB;
 use Mail;
@@ -15,13 +19,18 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
-class UserDashboardController extends Controller
-{
-    function index(Request $req)
+    class UserDashboardController extends Controller
+    {
+        function index(Request $req)
     {
         $user_session = $req->session()->get("user");
         $user = Registration::getUserDetails($user_session['userid']);
-        return view("dashboard",compact("user"));
+        
+        $myTeam = My_team::my_team(); // Get the data from the My_team model
+        $myReferral = My_referral::my_referral(); // Get the data from the My_referral model
+        $investment = Investment::investment(); // Get the data from the investment model
+        $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
+        return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw"));
     }
 
     function transaction_password(request $req)
@@ -173,7 +182,30 @@ public function withdraw(Request $request)
     }
     
     function my_tree(){
-      return view("user-auth.my-tree");  
+    $user = Session::get('user');
+    $userReferral = Registration::where('id', $user['id'])->first();
+    $searchleft = $userReferral['referral_left'];
+    $searchright = $userReferral['referral_right'];
+ 
+    // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
+
+    //LEFT POSTION FIND
+    $dataleft = Registration::
+    where('referral_code', $searchleft)
+    ->where('position', 'LEFT')
+    ->get();
+
+    //RIGHT POSITION FIND
+    $dataright = Registration::where('referral_code', $searchright)
+    ->where('position', 'RIGHT')
+    ->get();
+
+    // echo '<pre>';
+    // echo $dataright;
+    // die;
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+        ->whereRaw('FIND_IN_SET("'.$searchright.'", parent_id)');
+      return view("user-auth.my-tree",compact("dataleft","dataright"));  
     }
 
 }

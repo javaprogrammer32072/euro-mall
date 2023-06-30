@@ -147,6 +147,7 @@ class RegistrationController extends Controller
                     return redirect()->back()->with('error', $message)->withInput();
                 }
                 $data=[
+                    'id' => $user->id,
                     'first_name' => $user->first_name,
                     'last_name' =>$user->last_name,
                     'userid' =>$user->userid,

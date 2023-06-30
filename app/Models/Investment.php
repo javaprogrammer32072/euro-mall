@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 
-class Withdraw extends Model
+class Investment extends Model
 {
     use HasFactory;
-    public $table = "withdraw";
+    public $table = "investment";
 
-    protected $fillable = [
-        'amount', 'remarks','user_id'
-    ];
 
-    public static function withdraw(){
+    public static function investment()
+    {
         $user = Session::get('user');
         $userreferral = Registration::where('userid', $user['userid'])->first();
-        $data = Withdraw::where('user_id', $userreferral->userid)->get();
-        return  $data->sum('amount');
+        $data = Investment::where('user_id', $userreferral->userid)
+            ->get();
+        return $totalAmount = $data->sum('amount');
     }
 }

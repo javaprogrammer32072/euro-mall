@@ -61,20 +61,8 @@
                                     <div class="avatar avatar-icon avatar-lg avatar-blue">
                                         <i class="anticon anticon-dollar"></i>
                                     </div>
-                                    @php
-                                        
-                                        $user = Session::get('user');
-                                        $userReferral = Registration::where('userid', $user['userid'])->first();
-                                        $searchValue = $userReferral['id'];
-                                        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
-                                            ->whereRaw('FIND_IN_SET("' . $searchValue . '",parent_id)')
-                                            ->get();
-                                        
-                                        $totalRecords = count($data);
-                                    @endphp
-
                                     <div class="m-l-15">
-                                        <h2 class="m-b-0">{{ $totalRecords }}</h2>
+                                        <h2 class="m-b-0">{{ $myTeam }}</h2>
                                         <p class="m-b-0 text-muted">My Team</p>
                                     </div>
                                 </div>
@@ -90,17 +78,8 @@
                                     <div class="avatar avatar-icon avatar-lg avatar-cyan">
                                         <i class="anticon anticon-line-chart"></i>
                                     </div>
-                                    @php
-                                        $user = Session::get('user');
-                                        $userreferral = Registration::where('userid', $user['userid'])->first();
-                                        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
-                                            ->orWhere('referral_code', $userreferral['referral_right'])
-                                            ->orWhere('referral_code', $userreferral['referral_left'])
-                                            ->get();
-                                        $totalRecords = count($data);
-                                    @endphp
                                     <div class="m-l-15">
-                                        <h2 class="m-b-0">{{ $totalRecords }}</h2>
+                                        <h2 class="m-b-0">{{ $myReferral }}</h2>
                                         <p class="m-b-0 text-muted">My Referral</p>
                                     </div>
                                 </div>
@@ -116,17 +95,8 @@
                                     <div class="avatar avatar-icon avatar-lg avatar-gold">
                                         <i class="anticon anticon-profile"></i>
                                     </div>
-                                    @php
-                                        $user = Session::get('user');
-                                        $userreferral = Registration::where('userid', $user['userid'])->first();
-                                        $data = DB::table('investment')
-                                            ->where('user_id', $userreferral->userid)
-                                            ->get();
-                                        $totalAmount = $data->sum('amount');
-                                    @endphp
-
                                     <div class="m-l-15">
-                                        <h2 class="m-b-0">{{ $totalAmount }}</h2>
+                                        <h2 class="m-b-0">{{ $investment }}</h2>
                                         <p class="m-b-0 text-muted">Investment</p>
                                     </div>
                                 </div>
@@ -142,17 +112,8 @@
                                     <div class="avatar avatar-icon avatar-lg avatar-purple">
                                         <i class="anticon anticon-user"></i>
                                     </div>
-                                    @php
-                                        $user = Session::get('user');
-                                        $userreferral = Registration::where('userid', $user['userid'])->first();
-                                        $data = DB::table('withdraw')
-                                            ->where('user_id', $userreferral->userid)
-                                            ->get();
-                                        $totalAmount = $data->sum('amount');
-                                    @endphp
-
                                     <div class="m-l-15">
-                                        <h2 class="m-b-0">{{ $totalAmount }}</h2>
+                                        <h2 class="m-b-0">{{ $withdraw }}</h2>
                                         <p class="m-b-0 text-muted">Withdraw</p>
                                     </div>
                                 </div>
