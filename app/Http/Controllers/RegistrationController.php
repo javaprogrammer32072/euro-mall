@@ -22,13 +22,14 @@ class RegistrationController extends Controller
         $req->validate([
             "fname"=>"required|min:3|max:50",
             "lname"=>"required|min:3|max:50",
-            "email"=>"required|email",
-            "phone"=>"required|min:10|max:10",
+            "email"=>"required|email|unique:registration,email",
+            "phone"=>"required|min:10|max:10|unique:registration,phone",
             "password"=>"required|min:8",
             "confirmPassword"=>"required|same:password",
             "referral_code"=>"required",
             "agreement"=>"required"
         ]);
+        
         $res = Registration::createUser($req->all());
         $lastInsertId = $res['id'];
         $email = $res['email'];
@@ -39,7 +40,6 @@ class RegistrationController extends Controller
             $request = Registration::where('id', $lastInsertId)->update(['otp' => $otp, 'expire_time' => $expire_time]);
 
             $emailToSend = $email; // Assign the email to a separate variable
-
             Mail::send('emails.registration_otp', ['otp' => $otp], function ($message) use ($emailToSend) {
                 $message->to($emailToSend);
                 $message->subject('Mail from EuroMall');
