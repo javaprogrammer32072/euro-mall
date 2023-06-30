@@ -154,9 +154,10 @@ class RegistrationController extends Controller
                 ];
 
                 Session::put('user', $data);
-                return Redirect()->to('/empanel/dashboard');
                 $message = 'Successfully login!';
-                return redirect()->back()->with('success', $message)->withInput();
+                return redirect()->to('/empanel/dashboard')->with('success', $message);
+                // $message = 'Successfully login!';
+                // return redirect()->back()->with('success', $message)->withInput();
             }
         }else{
             $message = 'username or password is incorrect';
@@ -165,10 +166,13 @@ class RegistrationController extends Controller
     }
 
     //create logout function 
-    public function logout(): RedirectResponse
+   public function logout(): RedirectResponse
     {
         Session::flush();
         // Perform any other necessary cleanup or logout actions
-        return redirect()->route('signin');
+        
+        $message = 'Successfully Logout!';
+        return redirect('/')->with('success', $message);
     }
+
 }

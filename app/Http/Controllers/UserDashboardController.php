@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon; 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\Withdraw;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
@@ -86,45 +87,6 @@ class UserDashboardController extends Controller
         }
     }
 
-    // Start MY Referral View Page 
-//    function my_referral()
-//     {
-//         $user = Session::get('user');
-//         $userreferral = Registration::where('userid', $user['userid'])->first();
-//         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
-//             ->orWhere('referral_code', $userreferral['referral_right'])
-//             ->orWhere('referral_code', $userreferral['referral_left'])
-//             ->get();
-//          return view("user-auth.my-referral");
-//     }
-
-
-// public function my_referral(Request $request)
-// {
-//     if ($request->ajax()) {
-//         $user = Session::get('user');
-//         $userreferral = Registration::where('userid', $user['userid'])->first();
-
-//         // Retrieve the necessary data for the DataTable
-//         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
-//             ->where('referral_code', $userreferral['referral_right'])
-//             ->orWhere('referral_code', $userreferral['referral_left'])
-//             ->get();
-
-//         // Build the DataTable response
-//         $response = [
-//             'draw' => $request->input('draw'),
-//             'recordsTotal' => $data->count(),
-//             'recordsFiltered' => $data->count(),
-//             'data' => $data
-//         ];
-
-//         return response()->json($response);
-//     }
-
-//     return view("user-auth.my-referral");
-// }
-
 public function my_referral(Request $request)
 {
     if ($request->ajax()) {
@@ -159,23 +121,57 @@ public function my_team(Request $request)
     }
      return view('user-auth.my-team');
 }
-     // Start MY Team View Page 
-    // function my_team()
-    // {
-    //     $user = Session::get('user');
-    //     $userReferral = Registration::where('userid', $user['userid'])->first();
-    //     $searchValue = $userReferral['id'];
-    //     $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status','position')
-    //     ->whereRaw('FIND_IN_SET("'.$searchValue.'",parent_id)')->get();
-    //     return view("user-auth.my-team", compact('data'));
-    // }
-
-    // use DataTables;
 
 
+public function investment(Request $request)
+{
+    if ($request->ajax()) {
+        $user = Session::get('user');
+        $userreferral = Registration::where('userid', $user['userid'])->first();
+        // Retrieve the necessary data for the DataTable
+        $data = DB::table('investment')
+            ->select('user_id', 'amount', 'status', 'created_at')
+            ->where('user_id', $userreferral['userid'])
+            ->get();
 
 
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    return view('user-auth.investment');
+}
+public function withdraw(Request $request)
+{
+    if ($request->ajax()) {
+        $user = Session::get('user');
+        $userreferral = Registration::where('userid', $user['userid'])->first();
+        // Retrieve the necessary data for the DataTable
+        $data = DB::table('withdraw')
+            ->select('user_id', 'amount','trans_charge','remarks', 'status', 'created_at')
+            ->where('user_id', $userreferral['userid'])
+            ->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    return view('user-auth.withdraw');
+}
 
+    function add_withdraw(Request $req)
+    {
+        $req->validate([
+            "amount" => "required|numeric",
+            "remarks"=>"required",
+            "user_id"=>"required",
+        ]);
+
+         Withdraw::create($req->all());
+     
+          $req->session()->flash('success','Withdraw Request created successfully.');
+            return redirect("/empanel/withdraw");
+    }
+    
     function my_tree(){
       return view("user-auth.my-tree");  
     }

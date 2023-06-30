@@ -63,10 +63,44 @@
     <script src="{{ URL::asset('/assets/vendors/datatables/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/vendors/datatables/vfs_fonts.js') }}"></script>
     <script src="{{ URL::asset('/assets/vendors/datatables/buttons.html5.min.js') }}"></script>
+
     {{-- <script src="{{ URL::asset('/assets/vendors/datatables/buttons.print.min.js') }}"></script> --}}
     <!-- footerScript -->
     <!-- App js -->
     @yield('scripts')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- HTML markup for notification display -->
+    <div id="notification-container"></div>
+
+    <!-- JavaScript code -->
+    <script type="text/javascript">
+        function ShowNotificator(icon, title) {
+            Swal.fire({
+                position: 'bottom-end',
+                icon: icon,
+                title: title,
+                showConfirmButton: false,
+                timer: 7000,
+                toast: true,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        }
+
+        // Check for success or error session variables and display notifications
+        @if (session('success'))
+            ShowNotificator('success', '{{ session('success') }}');
+        @endif
+
+        @if (session('error'))
+            ShowNotificator('warning', '<strong>Oh snap! </strong>{{ session('error') }}');
+        @endif
+    </script>
+
 
     <script>
         $(document).ready(function() {
