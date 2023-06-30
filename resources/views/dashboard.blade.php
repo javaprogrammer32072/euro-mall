@@ -31,7 +31,8 @@
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
                     <div class="form-group m-b-10">
-                        <button class="btn btn-danger btn-sm  float-right">In Active</button>
+                        <button class="btn btn-danger btn-sm  float-right" data-toggle="modal" data-target="#investModel">In
+                            Active</button>
                     </div>
                 </div>
             </div>
@@ -163,6 +164,37 @@
             </div>
         </div>
         <!-- Content Wrapper END -->
+
+        <!-- Modal -->
+        <div class="modal" id="investModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog static">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Invest</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{url("empanel/invest-amount")}}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Invest Amount</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" name="amount" placeholder="Amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Transaction Password</label>
+                                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endsection
 
     @section('scripts')
