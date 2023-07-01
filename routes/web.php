@@ -6,9 +6,10 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\MatchingController;
 
 Route::get('/', function () {
-    return view('frontend.index');
+  return view('frontend.index');
 });
 //Frontend Routes 
 Route::get("/about_us", [FrontController::class, "about_us"])->name('about_us');
@@ -40,29 +41,31 @@ Route::post("/otp_check", [RegistrationController::class, "otp_check"])->name('o
 
 Route::group(["prefix" => "empanel", "middleware" => "CheckUser"], function () {
 
-    Route::get("dashboard", [UserDashboardController::class, "index"])->name('dashboard');
-    // User Frontend Routes 
-    Route::get("/edit-profile", [RegistrationController::class, "edit_profile"])->name('edit_profile');
-    Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
+  Route::get("dashboard", [UserDashboardController::class, "index"])->name('dashboard');
+  // User Frontend Routes 
+  Route::get("/edit-profile", [RegistrationController::class, "edit_profile"])->name('edit_profile');
+  Route::post('/edit-profile', [RegistrationController::class, 'edit_profilePost'])->name('edit_profilepost');
 
-    // Transaction Password Change Routes 
-    Route::get("/transaction_password", [UserDashboardController::class, "transaction_password"])->name('transaction_password');
-    Route::post('/transaction_passwords', [UserDashboardController::class, 'transaction_passwords'])->name('transaction_passwords');
-    Route::get("/transaction_otp", [UserDashboardController::class, "transaction_otp"])->name('transaction_otp');
-    Route::post("/transaction_password_check", [UserDashboardController::class, "transaction_password_check"])->name('transaction_password_check');
+  // Transaction Password Change Routes 
+  Route::get("/transaction_password", [UserDashboardController::class, "transaction_password"])->name('transaction_password');
+  Route::post('/transaction_passwords', [UserDashboardController::class, 'transaction_passwords'])->name('transaction_passwords');
+  Route::get("/transaction_otp", [UserDashboardController::class, "transaction_otp"])->name('transaction_otp');
+  Route::post("/transaction_password_check", [UserDashboardController::class, "transaction_password_check"])->name('transaction_password_check');
 
-    //My Referral Routes
-    Route::get("/my_referral", [UserDashboardController::class, "my_referral"])->name('my_referral');
-    Route::get("/my_team", [UserDashboardController::class, "my_team"])->name('my_team');
-    Route::get("/my_tree", [UserDashboardController::class, "my_tree"])->name('my_tree');
-    Route::get("/investment", [UserDashboardController::class, "investment"])->name('investment');
+  //My Referral Routes
+  Route::get("/my_referral", [UserDashboardController::class, "my_referral"])->name('my_referral');
+  Route::get("/my_team", [UserDashboardController::class, "my_team"])->name('my_team');
+  Route::get("/my_tree", [UserDashboardController::class, "my_tree"])->name('my_tree');
+  Route::get("/investment", [UserDashboardController::class, "investment"])->name('investment');
 
 
-    //My Withdraw Routes
-    Route::get("/withdraw", [UserDashboardController::class, "withdraw"])->name('withdraw');
-    Route::post("/add_withdraw", [UserDashboardController::class, "add_withdraw"])->name('add_withdraw');
-
-    Route::post("invest-amount",[UserDashboardController::class,"investAmountPost"]);
+  //My Withdraw Routes
+  Route::get("/withdraw", [UserDashboardController::class, "withdraw"])->name('withdraw');
+  Route::post("/add_withdraw", [UserDashboardController::class, "add_withdraw"])->name('add_withdraw');
+  Route::post("invest-amount", [UserDashboardController::class, "investAmountPost"]);
+  // Cron Part 
+  Route::get("today-matching", [MatchingController::class, "todayMatching"]);
+  Route::get("today-roi", [MatchingController::class, "todayROI"]);
 
 });
 // Admin Panel Routes 
