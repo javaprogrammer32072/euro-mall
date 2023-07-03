@@ -129,25 +129,6 @@ class RegistrationController extends Controller
             'user_id' => $request->user_id,
             'password' => $request->password,
         ];
-        $user = Registration::where("userid", $cred['user_id'])->first();
-        if(!empty($user))
-        {
-            if( ! Hash::check($cred['password'] , $user->password ) )
-            {
-                $message = 'password is incorrect';
-                return redirect()->back()->with('error', $message)->withInput();
-            }else
-            {
-                if($user->is_verify == 0){
-                    $message = 'Please verfiy Mail Id!';
-                    return redirect()->back()->with('error', $message)->withInput();
-                }
-                $data=[
-                    'first_name' => $user->first_name,
-                    'last_name' =>$user->last_name,
-                    'userid' =>$user->userid,
-                    'email' =>$user->email,
-                ];
 
         Session::put('user', $data);
         $message = 'Successfully login!';

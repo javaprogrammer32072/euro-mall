@@ -19,12 +19,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserDashboardController extends Controller
 {
-    function index(Request $req)
-    {
-        $user_session = $req->session()->get("user");
-        $user = Registration::getUserDetails($user_session['userid']);
-        return view("dashboard",compact("user"));
-    }
+  function index(Request $req)
+  {
+    $user_session = $req->session()->get("user");
+    $user = Registration::getUserDetails($user_session['userid']);
+    return view("dashboard", compact("user"));
+  }
 
   function transaction_password(request $req)
   {
@@ -167,13 +167,14 @@ class UserDashboardController extends Controller
       "user_id" => "required",
     ]);
 
+<<<<<<<<< Temporary merge branch 1
          Withdraw::create($req->all());
      
           $req->session()->flash('success','Withdraw Request created successfully.');
             return redirect("/empanel/withdraw");
     }
     
-     function my_tree(){
+    function my_tree(){
     $user = Session::get('user');
     $userReferral = Registration::where('id', $user['id'])->first();
     $searchleft = $userReferral['referral_left'];
@@ -198,6 +199,64 @@ class UserDashboardController extends Controller
         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
         ->whereRaw('FIND_IN_SET("'.$searchright.'", parent_id)');
       return view("user-auth.my-tree",compact("dataleft","dataright"));  
+=========
+    Withdraw::create($req->all());
+
+    $req->session()->flash('success', 'Withdraw Request created successfully.');
+    return redirect("/empanel/withdraw");
+  }
+
+  function my_tree()
+  {
+    return view("user-auth.my-tree");
+  }
+  function investAmountPost(Request $req)
+  {
+    $amount = $req->post("amount");
+    $password = $req->post("password");
+    $user = $req->session()->get("user");
+    $check_user = Registration::where("userid", $user['userid'])->first();
+    if (!Hash::check($password, $check_user->transaction_password)) {
+      $req->session()->flash("error", "Incorrect Transaction Password");
+      return redirect("/empanel/dashboard");
+    } else {
+      // Now Save Data Into Investment Table 
+      $inv = new Investment();
+      $inv->amount = $amount;
+      $inv->user_id = $check_user->id;
+      $inv->status = 1;
+      if ($inv->save()) {
+        // Now Active user with status 1
+        Registration::where("userid", $user['userid'])->update(['status' => 1]);
+        $req->session()->flash("success", "Successfully Invested Amount");
+        return redirect("/empanel/dashboard");
+      } else {
+        $req->session()->flash("error", "Something Went Wrong!");
+        return redirect("/empanel/dashboard");
+      }
+>>>>>>>>> Temporary merge branch 2
+    }
+
+    function my_tree()
+    {
+        $user = Session::get('user');
+        $userReferral = Registration::where('id', $user['id'])->first();
+        $searchleft = $userReferral['referral_left'];
+        $searchright = $userReferral['referral_right'];
+
+        // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
+
+        //LEFT POSTION FIND
+        $dataleft = Registration::where('referral_code', $searchleft)->where('position', 'LEFT')->get();
+
+        //RIGHT POSITION FIND
+        $dataright = Registration::where('referral_code', $searchright)
+            ->where('position', 'RIGHT')
+            ->get();
+
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+            ->whereRaw('FIND_IN_SET("' . $searchright . '", parent_id)');
+        return view("user-auth.my-tree", compact("dataleft", "dataright"));
     }
 
 }
