@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-6 text-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Add
+                            Withdraw Request
                         </button>
                     </div>
                 </div>
@@ -51,7 +51,6 @@
                                     <th>REMARKS</th>
                                     <th>STATUS</th>
                                     <th>DATE</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -152,6 +151,18 @@
                     {
                         data: 'created_at',
                         name: 'created_at',
+                        render: function(data, type, row) {
+                            if (type === 'display' || type === 'filter') {
+                                var date = new Date(data);
+                                var day = ('0' + date.getDate()).slice(-2);
+                                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                                var year = date.getFullYear();
+                                var formattedDate = day + '/' + month + '/' + year;
+                                return formattedDate;
+                            }
+
+                            return data;
+                        },
                         orderable: true,
                         searchable: true
                     }

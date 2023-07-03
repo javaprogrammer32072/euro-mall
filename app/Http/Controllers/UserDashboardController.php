@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\My_team;
+use App\Models\My_referral;
+use App\Models\Investment;
+
+
 use App\Models\Withdraw;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Investment;
 
 class UserDashboardController extends Controller
 {
@@ -22,7 +25,12 @@ class UserDashboardController extends Controller
     {
         $user_session = $req->session()->get("user");
         $user = Registration::getUserDetails($user_session['userid']);
-        return view("dashboard", compact("user"));
+
+        $myTeam = My_team::my_team(); // Get the data from the My_team model
+        $myReferral = My_referral::my_referral(); // Get the data from the My_referral model
+        $investment = Investment::investment(); // Get the data from the investment model
+        $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
+        return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw"));
     }
 
     function transaction_password(request $req)
@@ -172,10 +180,6 @@ class UserDashboardController extends Controller
         return redirect("/empanel/withdraw");
     }
 
-    function my_tree()
-    {
-        return view("user-auth.my-tree");
-    }
     function investAmountPost(Request $req)
     {
         $amount = $req->post("amount");
@@ -183,27 +187,44 @@ class UserDashboardController extends Controller
         $user = $req->session()->get("user");
         $check_user = Registration::where("userid", $user['userid'])->first();
         if (!Hash::check($password, $check_user->transaction_password)) {
-            $req->session()->flash("error","Incorrect Transaction Password");
+            $req->session()->flash("error", "Incorrect Transaction Password");
             return redirect("/empanel/dashboard");
-        }
-        else
-        {
+        } else {
             // Now Save Data Into Investment Table 
             $inv = new Investment();
             $inv->amount = $amount;
             $inv->user_id = $check_user->id;
             $inv->status = 1;
-            if($inv->save())
-            {
-                $req->session()->flash("success","Successfully Invested Amount");
+            if ($inv->save()) {
+                $req->session()->flash("success", "Successfully Invested Amount");
                 return redirect("/empanel/dashboard");
-            }
-            else
-            {
-                $req->session()->flash("error","Something Went Wrong!");
+            } else {
+                $req->session()->flash("error", "Something Went Wrong!");
                 return redirect("/empanel/dashboard");
             }
         }
+    }
+
+    function my_tree()
+    {
+        $user = Session::get('user');
+        $userReferral = Registration::where('id', $user['id'])->first();
+        $searchleft = $userReferral['referral_left'];
+        $searchright = $userReferral['referral_right'];
+
+        // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
+
+        //LEFT POSTION FIND
+        $dataleft = Registration::where('referral_code', $searchleft)->where('position', 'LEFT')->get();
+
+        //RIGHT POSITION FIND
+        $dataright = Registration::where('referral_code', $searchright)
+            ->where('position', 'RIGHT')
+            ->get();
+
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+            ->whereRaw('FIND_IN_SET("' . $searchright . '", parent_id)');
+        return view("user-auth.my-tree", compact("dataleft", "dataright"));
     }
 
 }
