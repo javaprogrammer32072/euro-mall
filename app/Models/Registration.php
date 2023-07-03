@@ -8,8 +8,8 @@ use Hash;
 
 class Registration extends Model
 {
-    use HasFactory;
-    public $table = "registration";
+  use HasFactory;
+  public $table = "registration";
 
     // Create a new user function 
     public static function createUser($req){
@@ -30,7 +30,7 @@ class Registration extends Model
         $right_parent =$p_user->right_parent;
         $left_referral = $user->id.substr(uniqid(),5)."L";
         $right_referral = $user->id.substr(uniqid(),5)."R";
-        $userid = "JC".$user->id.substr(uniqid(),6);
+        $userid = "EM".$user->id.substr(uniqid(),6);
 
         // Check Referral code giver user referral code is left referral code or left referral code 
        if ($p_user->referral_right == $req['referral_code']) {
@@ -55,30 +55,30 @@ class Registration extends Model
             'email' => $user->email
         ];
 
-    }
+  }
 
-    public static function editprofile($req)
-    {
-        $user = new Registration(); // Instantiate the Registration class
-        $user->userid = $req['user_id'];
-        $edit_array = array(
-            'first_name' => $req['fname'],
-            'last_name' => $req['lname'],
-            'email' => $req['email'],
-            'phone' => $req['phone'],
-            'updated_at' => now()
-        );   
-    
-        $res = Registration::where('userid', $user->userid);
-        $data = $res->update($edit_array);
-        return true;
-    }
+  public static function editprofile($req)
+  {
+    $user = new Registration(); // Instantiate the Registration class
+    $user->userid = $req['user_id'];
+    $edit_array = array(
+      'first_name' => $req['fname'],
+      'last_name' => $req['lname'],
+      'email' => $req['email'],
+      'phone' => $req['phone'],
+      'updated_at' => now()
+    );
 
-    // Get User Details Function 
-    public static function getUserDetails($userid)
-    {
-        return Registration::where("userid",'=',$userid)
-        ->select("id",'first_name',"last_name","phone","email","userid","referral_left","referral_right")->first();
-    }
+    $res = Registration::where('userid', $user->userid);
+    $data = $res->update($edit_array);
+    return true;
+  }
+
+  // Get User Details Function 
+  public static function getUserDetails($userid)
+  {
+    return Registration::where("userid", '=', $userid)
+      ->select("id", 'first_name', "last_name", "phone", "email", "userid", "referral_left", "referral_right", 'status')->first();
+  }
 
 }

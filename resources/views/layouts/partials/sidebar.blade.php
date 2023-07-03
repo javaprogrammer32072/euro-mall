@@ -64,7 +64,7 @@
                           <a href="#"><span>Direct Income</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="#"><span>Matching Income</span> </a>
+                          <a href="{{ url('/empanel/today-matching') }}"><span>Matching Income</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>Team Income</span> </a>

@@ -97,7 +97,7 @@
         @endif
 
         @if (session('error'))
-            ShowNotificator('warning', '<strong>Oh snap! </strong>{{ session('error') }}');
+            ShowNotificator('error', '{{ session('error') }}');
         @endif
     </script>
 
