@@ -243,9 +243,6 @@
                                                     </div>
                                                 </a>
                                             </li>
-
-
-
                                             <li>
                                                 <a href="javascript:void(0);">
                                                     <div class="member-view-box">
