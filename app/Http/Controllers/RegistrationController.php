@@ -146,41 +146,6 @@ class RegistrationController extends Controller
           'email' => $user->email,
           "id" => $user->id,
         ];
-<<<<<<< HEAD
-        $user = Registration::where("userid", $cred['user_id'])->first();
-        if(!empty($user))
-        {
-            if( ! Hash::check($cred['password'] , $user->password ) )
-            {
-                $message = 'password is incorrect';
-                return redirect()->back()->with('error', $message)->withInput();
-            }else
-            {
-                if($user->is_verify == 0){
-                    $message = 'Please verfiy Mail Id!';
-                    return redirect()->back()->with('error', $message)->withInput();
-                }
-                $data=[
-                    'id' => $user->id,
-                    'first_name' => $user->first_name,
-                    'last_name' =>$user->last_name,
-                    'userid' =>$user->userid,
-                    'email' =>$user->email,
-                ];
-
-                Session::put('user', $data);
-                $message = 'Successfully login!';
-                return redirect()->to('/empanel/dashboard')->with('success', $message);
-                // $message = 'Successfully login!';
-                // return redirect()->back()->with('success', $message)->withInput();
-            }
-        }else{
-            $message = 'username or password is incorrect';
-            return redirect()->back()->with('error', $message)->withInput();
-        }
-    }
-=======
->>>>>>> f7a2140a9c62f821aa3627f282a68e777b15b995
 
         Session::put('user', $data);
         $message = 'Successfully login!';

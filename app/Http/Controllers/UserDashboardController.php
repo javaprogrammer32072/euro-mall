@@ -21,18 +21,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserDashboardController extends Controller
 {
-<<<<<<< HEAD
-    function index(Request $req)
-    {
-        $user_session = $req->session()->get("user");
-        $user = Registration::getUserDetails($user_session['userid']);
-
-        $myTeam = My_team::my_team(); // Get the data from the My_team model
-        $myReferral = My_referral::my_referral(); // Get the data from the My_referral model
-        $investment = Investment::investment(); // Get the data from the investment model
-        $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
-        return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw"));
-=======
   function index(Request $req)
   {
     $user_session = $req->session()->get("user");
@@ -69,7 +57,6 @@ class UserDashboardController extends Controller
     } else {
       $req->session()->flash("error ", "Please Try again! .");
       return redirect("/signin");
->>>>>>> f7a2140a9c62f821aa3627f282a68e777b15b995
     }
   }
 
@@ -155,7 +142,6 @@ class UserDashboardController extends Controller
         ->addIndexColumn()
         ->toJson();
     }
-<<<<<<< HEAD
 
     function investAmountPost(Request $req)
     {
@@ -180,69 +166,6 @@ class UserDashboardController extends Controller
                 return redirect("/empanel/dashboard");
             }
         }
-=======
-    return view('user-auth.investment');
-  }
-  public function withdraw(Request $request)
-  {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-      $userreferral = Registration::where('userid', $user['userid'])->first();
-      // Retrieve the necessary data for the DataTable
-      $data = DB::table('withdraw')
-        ->select('user_id', 'amount', 'trans_charge', 'remarks', 'status', 'created_at')
-        ->where('user_id', $userreferral['userid'])
-        ->get();
-      return DataTables::of($data)
-        ->addIndexColumn()
-        ->toJson();
-    }
-    return view('user-auth.withdraw');
-  }
-
-  function add_withdraw(Request $req)
-  {
-    $req->validate([
-      "amount" => "required|numeric",
-      "remarks" => "required",
-      "user_id" => "required",
-    ]);
-
-    Withdraw::create($req->all());
-
-    $req->session()->flash('success', 'Withdraw Request created successfully.');
-    return redirect("/empanel/withdraw");
-  }
-
-  function my_tree()
-  {
-    return view("user-auth.my-tree");
-  }
-  function investAmountPost(Request $req)
-  {
-    $amount = $req->post("amount");
-    $password = $req->post("password");
-    $user = $req->session()->get("user");
-    $check_user = Registration::where("userid", $user['userid'])->first();
-    if (!Hash::check($password, $check_user->transaction_password)) {
-      $req->session()->flash("error", "Incorrect Transaction Password");
-      return redirect("/empanel/dashboard");
-    } else {
-      // Now Save Data Into Investment Table 
-      $inv = new Investment();
-      $inv->amount = $amount;
-      $inv->user_id = $check_user->id;
-      $inv->status = 1;
-      if ($inv->save()) {
-        // Now Active user with status 1
-        Registration::where("userid", $user['userid'])->update(['status' => 1]);
-        $req->session()->flash("success", "Successfully Invested Amount");
-        return redirect("/empanel/dashboard");
-      } else {
-        $req->session()->flash("error", "Something Went Wrong!");
-        return redirect("/empanel/dashboard");
-      }
->>>>>>> f7a2140a9c62f821aa3627f282a68e777b15b995
     }
   }
 
