@@ -10,15 +10,12 @@ use App\Models\Registration;
 use App\Models\My_team;
 use App\Models\My_referral;
 use App\Models\Investment;
-
-
 use App\Models\Withdraw;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Investment;
 
 class UserDashboardController extends Controller
 {
@@ -176,8 +173,31 @@ class UserDashboardController extends Controller
             return redirect("/empanel/withdraw");
     }
     
-    function my_tree(){
-      return view("user-auth.my-tree");  
+     function my_tree(){
+    $user = Session::get('user');
+    $userReferral = Registration::where('id', $user['id'])->first();
+    $searchleft = $userReferral['referral_left'];
+    $searchright = $userReferral['referral_right'];
+ 
+    // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
+
+    //LEFT POSTION FIND
+    $dataleft = Registration::
+    where('referral_code', $searchleft)
+    ->where('position', 'LEFT')
+    ->get();
+
+    //RIGHT POSITION FIND
+    $dataright = Registration::where('referral_code', $searchright)
+    ->where('position', 'RIGHT')
+    ->get();
+
+    // echo '<pre>';
+    // echo $dataright;
+    // die;
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+        ->whereRaw('FIND_IN_SET("'.$searchright.'", parent_id)');
+      return view("user-auth.my-tree",compact("dataleft","dataright"));  
     }
 
 }
