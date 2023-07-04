@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 use App\Models\Registration;
 use App\Models\Investment;
 use Carbon\Carbon;
@@ -52,5 +53,22 @@ class Matching extends Model
     $data['carry_amt'] = Matching::where('user_id', '=', $user_id)->where("carry_side", '=', "RIGHT")->whereDate("created_at", Carbon::parse(" -1 days"))->sum("carry_amount");
     return $data;
   }
+
+  public static function total_Matching()
+  {
+      $user = Session::get('user');
+      $userreferral = Registration::where('id', $user['id'])->first();
+      $data = Matching::where('user_id', $userreferral->id)
+          ->get();
+      return $totalAmount = $data->sum('amount');
+  }
+
+
+  public static function admin_total_Matching_report()
+  {
+      $data = Matching::get();
+      return $totalAmount = $data->sum('amount');
+  }
+
 
 }

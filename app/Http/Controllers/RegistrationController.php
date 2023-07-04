@@ -111,23 +111,40 @@ class RegistrationController extends Controller
     return view("user-auth.login");
   }
 
-    public function processLogin(Request  $request)
-    {
-        $rule = array(
-            'user_id' => 'required',
-            'password' => 'required'
-        );
-        $messages = array(
-            'user_id.required' => 'User ID is required',
-            'password.required' => 'Password is required',
-        );
-        $validation = Validator::make($request->all(), $rule, $messages);
-        if ($validation->fails()){
-            return redirect()->back()->withInput()->withErrors($validation);
+  public function processLogin(Request $request)
+  {
+    $rule = array(
+      'user_id' => 'required',
+      'password' => 'required'
+    );
+    $messages = array(
+      'user_id.required' => 'User ID is required',
+      'password.required' => 'Password is required',
+    );
+    $validation = Validator::make($request->all(), $rule, $messages);
+    if ($validation->fails()) {
+      return redirect()->back()->withInput()->withErrors($validation);
+    }
+    $cred = [
+      'user_id' => $request->user_id,
+      'password' => $request->password,
+    ];
+    $user = Registration::where("userid", $cred['user_id'])->first();
+    if (!empty($user)) {
+      if (!Hash::check($cred['password'], $user->password)) {
+        $message = 'password is incorrect';
+        return redirect()->back()->with('error', $message)->withInput();
+      } else {
+        if ($user->is_verify == 0) {
+          $message = 'Please verfiy Mail Id!';
+          return redirect()->back()->with('error', $message)->withInput();
         }
-        $cred = [
-            'user_id' => $request->user_id,
-            'password' => $request->password,
+        $data = [
+          'first_name' => $user->first_name,
+          'last_name' => $user->last_name,
+          'userid' => $user->userid,
+          'email' => $user->email,
+          "id" => $user->id,
         ];
 
         Session::put('user', $data);

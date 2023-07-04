@@ -11,6 +11,8 @@ use App\Models\My_team;
 use App\Models\My_referral;
 use App\Models\Investment;
 use App\Models\Withdraw;
+use App\Models\ROI;
+use App\Models\Matching;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +25,14 @@ class UserDashboardController extends Controller
   {
     $user_session = $req->session()->get("user");
     $user = Registration::getUserDetails($user_session['userid']);
-    return view("dashboard", compact("user"));
+    
+    $myTeam = My_team::my_team(); // Get the data from the My_team model
+    $myReferral = My_referral::my_referral(); // Get the data from the My_referral model
+    $investment = Investment::investment(); // Get the data from the investment model
+    $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
+    $roi = ROI::total_roi(); // Get the data from the ROI model
+    $Matching = Matching::total_Matching(); // Get the data from the Matching model 
+    return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw", "roi", "Matching"));
   }
 
   function transaction_password(request $req)
@@ -124,24 +133,23 @@ class UserDashboardController extends Controller
   }
 
 
-  public function investment(Request $request)
-  {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-      $userreferral = Registration::where('userid', $user['userid'])->first();
-      // Retrieve the necessary data for the DataTable
-      $data = DB::table('investment')
-        ->select('user_id', 'amount', 'status', 'created_at')
-        ->where('user_id', $userreferral['userid'])
-        ->get();
+ public function investment(Request $request)
+{
+  if ($request->ajax()) {
+    $user = Session::get('user');
+    $userreferral = DB::table("registration")
+      ->join('investment', 'investment.user_id', '=', 'registration.id')
+      ->select('registration.userid', 'investment.amount', 'investment.status', 'investment.created_at')
+      ->where('registration.id', $user['id'])
+      ->get();
 
-
-      return DataTables::of($data)
-        ->addIndexColumn()
-        ->toJson();
-    }
-    return view('user-auth.investment');
+    return DataTables::of($userreferral)
+      ->addIndexColumn()
+      ->toJson();
   }
+  return view('user-auth.investment');
+}
+
   public function withdraw(Request $request)
   {
     if ($request->ajax()) {
@@ -167,7 +175,6 @@ class UserDashboardController extends Controller
       "user_id" => "required",
     ]);
 
-<<<<<<<<< Temporary merge branch 1
          Withdraw::create($req->all());
      
           $req->session()->flash('success','Withdraw Request created successfully.');
@@ -199,17 +206,14 @@ class UserDashboardController extends Controller
         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
         ->whereRaw('FIND_IN_SET("'.$searchright.'", parent_id)');
       return view("user-auth.my-tree",compact("dataleft","dataright"));  
-=========
+
     Withdraw::create($req->all());
 
     $req->session()->flash('success', 'Withdraw Request created successfully.');
     return redirect("/empanel/withdraw");
   }
 
-  function my_tree()
-  {
-    return view("user-auth.my-tree");
-  }
+ 
   function investAmountPost(Request $req)
   {
     $amount = $req->post("amount");
@@ -234,29 +238,6 @@ class UserDashboardController extends Controller
         $req->session()->flash("error", "Something Went Wrong!");
         return redirect("/empanel/dashboard");
       }
->>>>>>>>> Temporary merge branch 2
     }
-
-    function my_tree()
-    {
-        $user = Session::get('user');
-        $userReferral = Registration::where('id', $user['id'])->first();
-        $searchleft = $userReferral['referral_left'];
-        $searchright = $userReferral['referral_right'];
-
-        // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
-
-        //LEFT POSTION FIND
-        $dataleft = Registration::where('referral_code', $searchleft)->where('position', 'LEFT')->get();
-
-        //RIGHT POSITION FIND
-        $dataright = Registration::where('referral_code', $searchright)
-            ->where('position', 'RIGHT')
-            ->get();
-
-        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
-            ->whereRaw('FIND_IN_SET("' . $searchright . '", parent_id)');
-        return view("user-auth.my-tree", compact("dataleft", "dataright"));
-    }
-
+  }
 }

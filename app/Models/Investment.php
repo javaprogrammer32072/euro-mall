@@ -1,24 +1,16 @@
 <?php
 
 namespace App\Models;
-<<<<<<<<< Temporary merge branch 1
 use App\Models\Registration;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-=========
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
->>>>>>>>> Temporary merge branch 2
 
 class Investment extends Model
 {
     use HasFactory;
     public $table = "investment";
-<<<<<<<<< Temporary merge branch 1
-
 
     public static function investment()
     {
@@ -28,6 +20,11 @@ class Investment extends Model
             ->get();
         return $totalAmount = $data->sum('amount');
     }
-=========
->>>>>>>>> Temporary merge branch 2
+
+    public static function admin_investment_report()
+    {
+        $data = Investment::get();
+        return $totalAmount = $data->sum('amount');
+    }
+
 }

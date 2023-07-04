@@ -24,4 +24,12 @@ class My_team extends Model
         return $totalRecords = count($data);
     }
 
+     public static function admin_my_team_report()
+    {
+        
+        $data = Registration::get();
+
+        return $totalRecords = count($data);
+    }
+
 }
