@@ -59,7 +59,7 @@ class MatchingController extends Controller
         $id = Matching::where('user_id', '=', $user->id)->whereDate("created_at", Carbon::today())->count();
         if (!$id) {
           // Here Check User is Active or Not 
-          $status = Registration::where("status", '=', $user->id)->where('status', '=', 1)->count();
+          $status = Registration::where("id", '=', $user->id)->where('status', '=', 1)->count();
           if ($status > 0) {
             $flush_amt = 0;
             // Now Check Matching Amount less then investment amount 
