@@ -23,8 +23,8 @@ class RegistrationController extends Controller
     $req->validate([
       "fname" => "required|min:3|max:50",
       "lname" => "required|min:3|max:50",
-      "email" => "required|email|unique:registration,email",
-      "phone" => "required|min:10|max:10|unique:registration,phone",
+      // "email" => "required|email|unique:registration,email",
+      // "phone" => "required|min:10|max:10|unique:registration,phone",
       "password" => "required|min:8",
       "confirmPassword" => "required|same:password",
       "referral_code" => "required",

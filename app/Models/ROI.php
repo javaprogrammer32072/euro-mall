@@ -19,10 +19,8 @@ class ROI extends Model
     $amount = ROI::where("user_id", '=', $user_id)->sum("amount_per_day");
     if ($investment > $amount)
       return true;
-    else {
-      echo "Excid userid: " . $user_id;
+    else 
       return false;
-    }
 
   }
 }

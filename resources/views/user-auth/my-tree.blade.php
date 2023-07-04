@@ -183,7 +183,7 @@
     <div class="page-container">
         <div class="main-content">
             <div class="container">
-
+                <a href="{{URL::previous()}}" class="btn btn-success btn-sm"><i class="fas fa-arrow-left"></i>&nbsp;Back</a>
                 <div class="body genealogy-body genealogy-scroll">
                     <div class="genealogy-tree">
                         <ul>
@@ -193,430 +193,41 @@
                                         <div class="member-image">
                                             <img src="{{ asset('assets/images/logo/profile.png') }}" alt="Member">
                                             <div class="member-details">
-                                                <h3>John Doe</h3>
+                                                <h3>{{$data['current']->first_name}}</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                                 <ul class="active">
                                     <li>
-                                        @foreach ($dataleft as $item)
-                                            <a href="javascript:void(0);">
-                                                <div class="member-view-box">
-                                                    <div class="member-image">
-                                                        <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                            alt="Member">
-                                                        <div class="member-details">
-                                                            <h3>{{ $item->first_name }}</h3>
-                                                        </div>
+                                        @isset($data['left']->first_name)
+                                        <a href="{{url("empanel/my_tree?tree=".$data['left']->id)}}">
+                                            <div class="member-view-box">
+                                                <div class="member-image">
+                                                    <img src="{{ asset('assets/images/logo/profile.png') }}" alt="Member">
+                                                    <div class="member-details">
+                                                        <h3>{{$data['left']->first_name}}</h3>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        @endforeach
-
-                                        <ul>
-                                            <li>
-                                                @foreach ($dataright as $item)
-                                                    <a href="javascript:void(0);">
-                                                        <div class="member-view-box">
-                                                            <div class="member-image">
-                                                                <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                    alt="Member">
-                                                                <div class="member-details">
-                                                                    <h3>{{ $item->first_name }}</h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>Member 1-2</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>Member 1-6</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-1</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-2</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-1</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-2</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-3</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-3</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>Member 1-7</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-1</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-2</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-1</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-2</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">
-                                                                    <div class="member-view-box">
-                                                                        <div class="member-image">
-                                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                                alt="Member">
-                                                                            <div class="member-details">
-                                                                                <h3>Member 1-7-2-3</h3>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>Member 1-7-3</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </a>
+                                        @endisset
                                     </li>
                                     <li>
-                                        @foreach ($dataright as $item)
-                                            <a href="javascript:void(0);">
-                                                <div class="member-view-box">
-                                                    <div class="member-image">
-                                                        <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                            alt="Member">
-                                                        <div class="member-details">
-                                                            <h3>{{ $item->first_name }}</h3>
-                                                        </div>
+                                        @isset($data['right']->first_name)
+                                        <a href="{{url("empanel/my_tree?tree=".$data['right']->id)}}">
+                                            <div class="member-view-box">
+                                                <div class="member-image">
+                                                    <img src="{{ asset('assets/images/logo/profile.png') }}" alt="Member">
+                                                    <div class="member-details">
+                                                        <h3>{{$data['right']->first_name}}</h3>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        @endforeach
-                                        <ul>
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>John Doe</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>John Doe</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <div class="member-view-box">
-                                                        <div class="member-image">
-                                                            <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                alt="Member">
-                                                            <div class="member-details">
-                                                                <h3>John Doe</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);">
-                                                            <div class="member-view-box">
-                                                                <div class="member-image">
-                                                                    <img src="{{ asset('assets/images/logo/profile.png') }}"
-                                                                        alt="Member">
-                                                                    <div class="member-details">
-                                                                        <h3>John Doe</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </a>
+                                        @endisset
                                     </li>
+                                    
                                 </ul>
                             </li>
                         </ul>

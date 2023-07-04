@@ -102,4 +102,12 @@ class Registration extends Model
       ->select("id", 'first_name', "last_name", "phone", "email", "userid", "referral_left", "referral_right", 'status')->first();
   }
 
+  public static function getOneLeftRightChild($parent_id)
+  {
+    $data['left'] = Registration::whereRaw("FIND_IN_SET('$parent_id',left_parent)")->where("position", '=', 'LEFT')->select("id","userid", "first_name")->orderBy("id", "ASC")->first();
+    $data['right'] = Registration::whereRaw("FIND_IN_SET('$parent_id',right_parent)")->where("position", '=', 'RIGHT')->select("id","userid", "first_name")->orderBy("id", "ASC")->first();
+    $data['current'] = Registration::where("id", '=', $parent_id)->select("id","userid", "first_name")->first();
+    return $data;
+  }
+
 }

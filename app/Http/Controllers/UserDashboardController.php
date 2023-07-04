@@ -169,26 +169,16 @@ class UserDashboardController extends Controller
     }
   }
 
-    function my_tree()
+    function my_tree(Request $req)
     {
         $user = Session::get('user');
-        $userReferral = Registration::where('id', $user['id'])->first();
-        $searchleft = $userReferral['referral_left'];
-        $searchright = $userReferral['referral_right'];
-
-        // SELECT * FROM `registration` WHERE referral_code="JC12345R" and position="RIGHT";
-
-        //LEFT POSTION FIND
-        $dataleft = Registration::where('referral_code', $searchleft)->where('position', 'LEFT')->get();
-
-        //RIGHT POSITION FIND
-        $dataright = Registration::where('referral_code', $searchright)
-            ->where('position', 'RIGHT')
-            ->get();
-
-        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
-            ->whereRaw('FIND_IN_SET("' . $searchright . '", parent_id)');
-        return view("user-auth.my-tree", compact("dataleft", "dataright"));
+        $id = $req->get("tree");
+        if(empty($id))
+          $id = $user['id'];
+        $data = Registration::getOneLeftRightChild($id);
+        // echo "<pre>";
+        // print_r($data);
+        return view("user-auth.my-tree", compact("data"));
     }
 
 }

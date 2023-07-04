@@ -21,4 +21,8 @@ class Investment extends Model
             ->get();
         return $totalAmount = $data->sum('amount');
     }
+    public static function getUserInvestmentAmount($user_id)
+    {
+        return Investment::where("user_id", '=', $user_id)->where('status', '=', 1)->sum("amount");
+    }
 }
