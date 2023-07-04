@@ -66,8 +66,15 @@ Route::group(["prefix" => "empanel", "middleware" => "CheckUser"], function () {
   // Cron Part 
   Route::get("today-matching", [MatchingController::class, "todayMatching"]);
   Route::get("today-roi", [MatchingController::class, "todayROI"]);
+  
 
+  //View Roi && Matching Income 
+  Route::get("view-roi", [MatchingController::class, "view_roi"])->name('view_roi');
+  Route::get("view-matching", [MatchingController::class, "view_matching"])->name('view_matching');
 });
 // Admin Panel Routes 
 Auth::routes();
-Route::get('administrator/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
+Route::group(["prefix" => "administrator", "middleware" => "auth"], function () {
+Route::get('/dashboard', [DashboardController::class, 'index']);
+});

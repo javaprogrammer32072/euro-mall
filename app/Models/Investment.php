@@ -12,7 +12,6 @@ class Investment extends Model
     use HasFactory;
     public $table = "investment";
 
-
     public static function investment()
     {
         $user = Session::get('user');
@@ -25,4 +24,11 @@ class Investment extends Model
     {
         return Investment::where("user_id", '=', $user_id)->where('status', '=', 1)->sum("amount");
     }
+
+    public static function admin_investment_report()
+    {
+        $data = Investment::get();
+        return $totalAmount = $data->sum('amount');
+    }
+
 }

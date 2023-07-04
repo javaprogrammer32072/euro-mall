@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 use App\Models\Investment;
 
 class ROI extends Model
@@ -23,4 +24,20 @@ class ROI extends Model
       return false;
 
   }
+
+   public static function total_roi()
+    {
+        $user = Session::get('user');
+        $userreferral = Registration::where('id', $user['id'])->first();
+        $data = ROI::where('user_id', $userreferral->id)
+            ->get();
+        return $totalAmount = $data->sum('amount_per_day');
+    }
+
+
+     public static function admin_total_roi_report()
+    {
+        $data = ROI::get();
+        return $totalAmount = $data->sum('amount_per_day');
+    }
 }

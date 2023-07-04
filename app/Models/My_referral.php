@@ -22,4 +22,12 @@ class My_referral extends Model
             ->get();
        return $totalRecords = count($data);
     }
+
+
+    public static function admin_my_referral_report(){
+      
+        $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+            ->get();
+       return $totalRecords = count($data);
+    }
 }

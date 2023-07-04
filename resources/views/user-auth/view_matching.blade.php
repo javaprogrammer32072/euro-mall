@@ -1,6 +1,6 @@
 @extends('layouts.user')
 @section('title')
-    MY Investment
+    MY View Matching
 @endsection
 @section('content')
     <div class="page-container">
@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="page-header">
-                            <h2 class="header-title">My Investment </h2>
+                            <h2 class="header-title">My View Matching </h2>
                             <div class="header-sub-title">
                                 <nav class="breadcrumb breadcrumb-dash">
                                     <a href="{{ url('/empanel/dashboard') }}" class="breadcrumb-item"><i
@@ -34,10 +34,13 @@
                                     <tr>
                                         <th>S.NO</th>
                                         <th>USERID</th>
+                                        <th>LEFT BUSS</th>
+                                        <th>RIGHT BUSS</th>
                                         <th>AMOUNT</th>
-                                        <th>STATUS</th>
+                                        <th>CARRY AMOUNT</th>
+                                        <th>FLUSH AMOUNT</th>
+                                        <th>CARRY SIDE</th>
                                         <th>DATE</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +59,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('investment') }}",
+                        url: "{{ route('view_matching') }}",
                         dataSrc: 'data'
                     },
                     dom: 'Blfrtip',
@@ -74,21 +77,28 @@
                             name: 'userid'
                         },
                         {
+                            data: 'left_buss',
+                            name: 'left_buss'
+                        },
+                        {
+                            data: 'right_buss',
+                            name: 'right_buss'
+                        },
+                        {
                             data: 'amount',
                             name: 'amount'
                         },
                         {
-                            data: 'status',
-                            name: 'status',
-                            render: function(data, type, row, meta) {
-                                if (data == 1) {
-                                    return '<span style="color: green;">Active</span>';
-                                } else if (data == 0) {
-                                    return '<span style="color: red;">Deactivate</span>';
-                                } else {
-                                    return '';
-                                }
-                            }
+                            data: 'carry_amount',
+                            name: 'carry_amount'
+                        },
+                        {
+                            data: 'flush_amt',
+                            name: 'flush_amt'
+                        },
+                        {
+                            data: 'carry_side',
+                            name: 'carry_side'
                         },
                         {
                             data: 'created_at',
@@ -134,57 +144,3 @@
         </script>
     @endsection
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- 
-    <script type="text/javascript">
-        $(function() {
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('investment') }}",
-                    dataSrc: 'data'
-                },
-                columns: [{
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return meta.row + 1;
-                        },
-                        name: 'id',
-                        searchable: true,
-                        orderable: false
-                    },
-                    {
-                        data: 'user_id',
-                        name: 'user_id'
-                    },
-                    {
-                        data: 'amount',
-                        name: 'amount'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        render: function(data, type, row, meta) {
-                            if (data == 1) {
-                                return '<span style="color: green;">Active</span>';
-                            } else if (data == 0) {
-                                return '<span style="color: red;">Deactivate</span>';
-                            } else {
-                                return '';
-                            }
-                        }
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at',
-                        orderable: true,
-                        searchable: true
-                    }
-                ],
-                order: [
-                    [1, 'asc']
-                ] // Default order by the 'userid' column
-
-            });
-        });
-    </script> --}}

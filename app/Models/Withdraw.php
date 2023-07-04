@@ -22,4 +22,9 @@ class Withdraw extends Model
         $data = Withdraw::where('user_id', $userreferral->userid)->get();
         return  $data->sum('amount');
     }
+
+    public static function admin_withdraw_report(){
+        $data = Withdraw::get();
+        return  $data->sum('amount');
+    }
 }
