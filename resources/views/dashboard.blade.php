@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="m-l-15">
                                         <h2 class="m-b-0">{{ $Matching }}</h2>
-                                        <p class="m-b-0 text-muted">Matching Income</p>
+                                        <p class="m-b-0 text-muted">Matching</p>
                                     </div>
                                 </div>
                             </div>

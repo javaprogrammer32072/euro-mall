@@ -32,4 +32,96 @@ class DashboardController extends Controller
         $Matching = Matching::admin_total_Matching_report(); 
         return view('Admin.dashboard',compact("withdraw","My_referral","My_team","Investment","ROI","Matching"));
     }
+
+    public function investments(Request $request)
+  {
+    if ($request->ajax()) {
+      $user = Session::get('user');
+      $userreferral = DB::table("registration")
+        ->join('investment', 'investment.user_id', '=', 'registration.id')
+        ->select('registration.userid', 'investment.amount', 'investment.status', 'investment.created_at')
+        ->get();
+
+      return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('Admin.investment');
+  }
+
+ public function withdraws(Request $request)
+  {
+    if ($request->ajax()) {
+      $data = DB::table('withdraw')
+        ->select('user_id', 'amount', 'trans_charge', 'remarks', 'status', 'created_at')
+        ->get();
+      return DataTables::of($data)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('Admin.withdraw');
+  }
+
+    public function my_referrals(Request $request)
+  {
+    if ($request->ajax()) {
+      // Retrieve the necessary data for the DataTable
+     $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
+            ->get();
+
+      return DataTables::of($data)
+        ->addIndexColumn()
+        ->toJson();
+    }
+
+    return view('Admin.my-referral');
+  }
+  public function my_teams(Request $request)
+  {
+    if ($request->ajax()) {
+        
+        $data = Registration::get();
+
+      return DataTables::of($data)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('Admin.my-team');
+  }
+
+
+  public function view_rois(Request $request)
+    {
+    if ($request->ajax()) {
+        $userreferral = DB::table("registration")
+        ->join('roi', 'roi.user_id', '=', 'registration.id')
+        ->select('registration.userid', 'roi.amount_per_day', 'roi.created_at')
+        ->get();
+
+        return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('Admin.roi');
+    }
+
+    public function view_matchings(Request $request)
+{
+    if ($request->ajax()) {
+        // $user = Session::get('user');
+        $userreferral = DB::table("registration")
+            ->join('matching', 'matching.user_id', '=', 'registration.id')
+            ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
+            // ->where('registration.id', $user['id'])
+            // ->where('matching.status', 1) // Add this line to filter by status
+            ->get();
+
+        return DataTables::of($userreferral)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    return view('Admin.view_matching');
+}
+
+
 }

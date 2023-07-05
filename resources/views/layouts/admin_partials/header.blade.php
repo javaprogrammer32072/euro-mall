@@ -4,13 +4,13 @@
 <!-- Header START -->
 <div class="header">
     <div class="logo logo-dark">
-        <a href="{{ route('dashboard') }}">
+        <a href="{{ url('/administrator/dashboard') }}">
             <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo">
             <img class="logo-fold" src="{{ asset('assets/images/logo/logo-fold.png') }}" alt="Logo">
         </a>
     </div>
     <div class="logo logo-white">
-        <a href="index.html">
+        <a href="{{ url('/administrator/dashboard') }}">
             <img src="{{ asset('assets/images/logo/logo-white.png') }}" alt="Logo">
             <img class="logo-fold" src="{{ asset('assets/images/logo/logo-fold-white.png') }}" alt="Logo">
         </a>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ route('edit_profile') }}" class="dropdown-item d-block p-h-15 p-v-10">
+                    {{-- <a href="{{ route('edit_profile') }}" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="anticon opacity-04 font-size-16 anticon-user"></i>
@@ -92,24 +92,24 @@
                             </div>
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
-                    </a>
+                    </a> --}}
 
                     <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="anticon opacity-04 font-size-16 anticon-project"></i>
-                                <span class="m-l-10">Projects</span>
+                                <span class="m-l-10">Change Password</span>
                             </div>
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
 
 
-                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    {{-- <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
-                    </a>
+                    </a> --}}
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

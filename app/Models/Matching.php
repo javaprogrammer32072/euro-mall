@@ -56,17 +56,16 @@ class Matching extends Model
 
   public static function total_Matching()
   {
-      $user = Session::get('user');
-      $userreferral = Registration::where('id', $user['id'])->first();
-      $data = Matching::where('user_id', $userreferral->id)
-          ->get();
-      return $totalAmount = $data->sum('amount');
+    $user = Session::get('user');
+    $userreferral = Registration::where('id', $user['id'])->first();
+    $data = Matching::where(array('user_id'=> $userreferral->id,'status'=>1))->get();
+    return $totalAmount = $data->sum('amount');
   }
 
 
   public static function admin_total_Matching_report()
   {
-      $data = Matching::get();
+      $data = Matching::where('status',1)->get();
       return $totalAmount = $data->sum('amount');
   }
 

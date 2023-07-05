@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BonanzaController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -78,4 +79,20 @@ Auth::routes();
 
 Route::group(["prefix" => "administrator", "middleware" => "auth"], function () {
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+//View bonanza && bonanza Craete 
+Route::get('bonanza/create', [BonanzaController::class, 'create'])->name('bonanza.create');
+Route::post("/add_bonanza", [BonanzaController::class, "add_bonanza"])->name('add_bonanza');
+Route::get('bonanza/view', [BonanzaController::class, 'view_bonanza'])->name('view_bonanza');
+
+
+//MY Investment ,MY Referral, MY Team Routes
+  Route::get("/my_referrals", [DashboardController::class, "my_referrals"])->name('my_referrals');
+  Route::get("/my_teams", [DashboardController::class, "my_teams"])->name('my_teams');
+  Route::get("/investments", [DashboardController::class, "investments"])->name('investments');
+  Route::get("/withdraws", [DashboardController::class, "withdraws"])->name('withdraws');
+
+  //View Roi && Matching Income 
+  Route::get("view-rois", [DashboardController::class, "view_rois"])->name('view_rois');
+  Route::get("view-matchings", [DashboardController::class, "view_matchings"])->name('view_matchings');
 });

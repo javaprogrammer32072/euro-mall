@@ -151,6 +151,7 @@ class MatchingController extends Controller
     return view('user-auth.roi');
   }
 
+<<<<<<< HEAD
   public function view_matching(Request $request)
   {
     if ($request->ajax()) {
@@ -167,4 +168,24 @@ class MatchingController extends Controller
     }
     return view('user-auth.view_matching');
   }
+=======
+    public function view_matching(Request $request)
+{
+    if ($request->ajax()) {
+        $user = Session::get('user');
+        $userreferral = DB::table("registration")
+            ->join('matching', 'matching.user_id', '=', 'registration.id')
+            ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
+            ->where('registration.id', $user['id'])
+            ->where('matching.status', 1) // Add this line to filter by status
+            ->get();
+
+        return DataTables::of($userreferral)
+            ->addIndexColumn()
+            ->toJson();
+    }
+    return view('user-auth.view_matching');
+}
+
+>>>>>>> ce9abe012c7306a4fea44228fe4822ed1558b26c
 }
