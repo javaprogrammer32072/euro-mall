@@ -11,6 +11,7 @@ use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Jobs\CalculateBoosterIncome;
 
 class RegistrationController extends Controller
 {
@@ -34,7 +35,8 @@ class RegistrationController extends Controller
     $res = Registration::createUser($req->all());
     $lastInsertId = $res['id'];
     $email = $res['email'];
-
+    //Now Fire booster income Jobs 
+    CalculateBoosterIncome::dispatch($req->post("referral_code"));
     if (!empty($lastInsertId)) {
       $otp = mt_rand(100000, 999999);
       $expire_time = now();

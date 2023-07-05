@@ -60,27 +60,33 @@ class MatchingController extends Controller
         if (!$id) {
           // Here Check User is Active or Not 
           $status = Registration::where("id", '=', $user->id)->where('status', '=', 1)->count();
-          if ($status > 0) {
-            $flush_amt = 0;
-            // Now Check Matching Amount less then investment amount 
-            $investment = Investment::getUserInvestmentAmount($user->id);
-            if ($match_per > $investment && $user->id!= $parent_id) {
-              // Match:500.5 || Investment: 400
-              //flush amt = 500.5 - 400 = 100.5
-              //Match Amt = Matching Amt - Flush Amt = 500.5 - 100.5 = 400
-              $flush_amt = $match_per - $investment;
-              $match_per = $match_per - $flush_amt;
-            }
-            $match = new Matching();
-            $match->user_id = $user->id;
-            $match->left_buss = $today_left_buss;
-            $match->right_buss = $today_right_buss;
-            $match->amount = $match_per;
-            $match->carry_amount = $carry_amt;
-            $match->carry_side = $position;
-            $match->flush_amt = $flush_amt;
-            $match->save();
+          if($parent_id==$user->id)
+            $status=1;
+          $flush_amt = 0;
+          // Now Check Matching Amount less then investment amount 
+          $investment = Investment::getUserInvestmentAmount($user->id);
+          $package = DB::table("packages")->where("amount", '=', $investment)->first();
+          $capping_daily = 0;
+          if(!empty($package))
+            $capping_daily = $package->capping_daily;
+          if ($match_per > $capping_daily && $user->id != $parent_id && $investment>0) {
+            // Match:500.5 || Investment: 400
+            //flush amt = 500.5 - 400 = 100.5
+            //Match Amt = Matching Amt - Flush Amt = 500.5 - 100.5 = 400
+            $flush_amt = $match_per - $capping_daily;
+            $match_per = $match_per - $flush_amt;
           }
+          $match = new Matching();
+          $match->user_id = $user->id;
+          $match->left_buss = $today_left_buss;
+          $match->right_buss = $today_right_buss;
+          $match->amount = $match_per;
+          $match->carry_amount = $carry_amt;
+          $match->carry_side = $position;
+          $match->flush_amt = $flush_amt;
+          $match->status = $status;
+          $match->save();
+
         }
         // echo "<pre>";
         // echo $today_left_buss;
@@ -127,39 +133,38 @@ class MatchingController extends Controller
   }
 
 
-    public function view_roi(Request $request)
-    {
+  public function view_roi(Request $request)
+  {
     if ($request->ajax()) {
-        $user = Session::get('user');
-     
-        $userreferral = DB::table("registration")
+      $user = Session::get('user');
+
+      $userreferral = DB::table("registration")
         ->join('roi', 'roi.user_id', '=', 'registration.id')
         ->select('registration.userid', 'roi.amount_per_day', 'roi.created_at')
         ->where('registration.id', $user['id'])
         ->get();
 
-        return DataTables::of($userreferral)
+      return DataTables::of($userreferral)
         ->addIndexColumn()
         ->toJson();
     }
     return view('user-auth.roi');
-    }
+  }
 
-    public function view_matching(Request $request)
-    {
-        if ($request->ajax()) {
-        $user = Session::get('user');
-        $userreferral = DB::table("registration")
+  public function view_matching(Request $request)
+  {
+    if ($request->ajax()) {
+      $user = Session::get('user');
+      $userreferral = DB::table("registration")
         ->join('matching', 'matching.user_id', '=', 'registration.id')
-        ->select('registration.userid',  'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
+        ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
         ->where('registration.id', $user['id'])
         ->get();
 
-        return DataTables::of($userreferral)
-            ->addIndexColumn()
-            ->toJson();
-        }
-        return view('user-auth.view_matching');
-    } 
-
+      return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('user-auth.view_matching');
+  }
 }
