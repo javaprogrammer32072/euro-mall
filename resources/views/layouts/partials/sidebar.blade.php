@@ -31,14 +31,14 @@
                       </li>
                   </ul>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                   <a class="nav-item" href="{{ url('/empanel/dashboard') }}">
                       <span class="icon-holder">
                           <i class="fas fa-wallet"></i>
                       </span>
                       <span class="title">My Wallet</span>
                   </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                   <a class="nav-item" href="{{ url('/empanel/transaction_password') }}">
                       <span class="icon-holder">
@@ -54,21 +54,21 @@
                       <span class="arrow"><i class="arrow-icon"></i> </span>
                   </a>
                   <ul class="dropdown-menu">
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Coin History</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/empanel/view-roi') }}"><span>ROI Income</span> </a>
                       </li>
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Direct Income</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/empanel/today-matching') }}"><span>Matching Income</span> </a>
                       </li>
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Team Income</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/empanel/view-matching') }}"><span>Matching Income</span> </a>
                       </li>

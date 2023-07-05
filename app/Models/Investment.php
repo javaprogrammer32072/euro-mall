@@ -15,8 +15,8 @@ class Investment extends Model
     public static function investment()
     {
         $user = Session::get('user');
-        $userreferral = Registration::where('userid', $user['userid'])->first();
-        $data = Investment::where('user_id', $userreferral->userid)
+        $userreferral = Registration::where('id', $user['id'])->first();
+        $data = Investment::where("user_id", '=', $userreferral->id)->where('status', '=', 1)
             ->get();
         return $totalAmount = $data->sum('amount');
     }

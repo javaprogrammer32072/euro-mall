@@ -146,20 +146,21 @@ class MatchingController extends Controller
     }
 
     public function view_matching(Request $request)
-    {
-        if ($request->ajax()) {
+{
+    if ($request->ajax()) {
         $user = Session::get('user');
         $userreferral = DB::table("registration")
-        ->join('matching', 'matching.user_id', '=', 'registration.id')
-        ->select('registration.userid',  'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
-        ->where('registration.id', $user['id'])
-        ->get();
+            ->join('matching', 'matching.user_id', '=', 'registration.id')
+            ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
+            ->where('registration.id', $user['id'])
+            ->where('matching.status', 1) // Add this line to filter by status
+            ->get();
 
         return DataTables::of($userreferral)
             ->addIndexColumn()
             ->toJson();
-        }
-        return view('user-auth.view_matching');
-    } 
+    }
+    return view('user-auth.view_matching');
+}
 
 }

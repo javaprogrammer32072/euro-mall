@@ -3,7 +3,7 @@
       <div class="side-nav-inner">
           <ul class="side-nav-menu scrollable">
               <li class="nav-item active">
-                  <a class="" href="{{ url('/empanel/dashboard') }}">
+                  <a class="" href="{{ url('/administrator/dashboard') }}">
                       <span class="icon-holder">
                           <i class="anticon anticon-dashboard"></i>
                       </span>
@@ -18,35 +18,43 @@
                   </a>
                   <ul class="dropdown-menu">
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/my_team') }}"><span>My Team</span> </a>
+                          <a href="{{ url('/administrator/my_teams') }}"><span>My Team</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/my_referral') }}"><span>My Referral</span> </a>
+                          <a href="{{ url('/administrator/my_referrals') }}"><span>My Referral</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/my_tree') }}"><span>My Team Tree</span> </a>
+                          <a href="{{ url('/administrator/my_trees') }}"><span>My Team Tree</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>My Team Tree</span> </a>
                       </li>
                   </ul>
               </li>
-              <li class="nav-item">
-                  <a class="nav-item" href="{{ url('/empanel/dashboard') }}">
+              {{-- <li class="nav-item">
+                  <a class="nav-item" href="{{ url('/administrator/dashboard') }}">
                       <span class="icon-holder">
                           <i class="fas fa-wallet"></i>
                       </span>
                       <span class="title">My Wallet</span>
                   </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
-                  <a class="nav-item" href="{{ url('/empanel/transaction_password') }}">
+                  <a class="nav-item" href="{{ url('/administrator/bonanza/view') }}">
+                      <span class="icon-holder">
+                          <i class="fas fa-wallet"></i>
+                      </span>
+                      <span class="title">My Bonanza</span>
+                  </a>
+              </li>
+              {{-- <li class="nav-item">
+                  <a class="nav-item" href="{{ url('/administrator/transaction_password') }}">
                       <span class="icon-holder">
                           <i class="fas fa-lock"></i>
                       </span>
                       <span class="title">Change TXN Password</span>
                   </a>
-              </li>
+              </li> --}}
               <li class="nav-item dropdown">
                   <a class="dropdown-toggle" href="javascript:void(0);">
                       <span class="icon-holder"><i class="nav-icon fas fa-chart-pie"></i> </span>
@@ -58,19 +66,19 @@
                           <a href="#"><span>Coin History</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/view-roi') }}"><span>ROI Income</span> </a>
+                          <a href="{{ url('/administrator/view-rois') }}"><span>ROI Income</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>Direct Income</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/today-matching') }}"><span>Matching Income</span> </a>
+                          <a href="{{ url('/administrator/today-matchings') }}"><span>Matching Income</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>Team Income</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/view-matching') }}"><span>Matching Income</span> </a>
+                          <a href="{{ url('/administrator/view-matchings') }}"><span>Matching Income</span> </a>
                       </li>
                       <li class="nav-item ">
                           <a href="#"><span>Booster Income</span> </a>
@@ -89,10 +97,10 @@
                           <a href="#"><span>Add Fund List</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/investment') }}"><span>Investment</span> </a>
+                          <a href="{{ url('/administrator/investments') }}"><span>Investment</span> </a>
                       </li>
                       <li class="nav-item ">
-                          <a href="{{ url('/empanel/withdraw') }}"><span>Withdraw</span> </a>
+                          <a href="{{ url('/administrator/withdraws') }}"><span>Withdraw</span> </a>
                       </li>
 
                   </ul>

@@ -12,7 +12,7 @@
         <div class="main-content">
             <div class="row">
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/my_team') }}">
+                    <a href="{{ url('/administrator/my_teams') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/my_referral') }}">
+                    <a href="{{ url('/administrator/my_referrals') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -46,7 +46,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/investment') }}">
+                    <a href="{{ url('/administrator/investments') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -63,7 +63,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/withdraw') }}">
+                    <a href="{{ url('/administrator/withdraws') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -80,7 +80,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/view-roi') }}">
+                    <a href="{{ url('/administrator/view-rois') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <a href="{{ url('/empanel/view-matching') }}">
+                    <a href="{{ url('/administrator/view-matchings') }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center">
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="m-l-15">
                                         <h2 class="m-b-0">{{ $Matching }}</h2>
-                                        <p class="m-b-0 text-muted">Matching Income</p>
+                                        <p class="m-b-0 text-muted">Matching</p>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('empanel/invest-amount') }}" method="POST">
+                        <form action="{{ url('administrator/invest-amount') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Invest Amount</label>
