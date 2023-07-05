@@ -60,16 +60,16 @@ class MatchingController extends Controller
         if (!$id) {
           // Here Check User is Active or Not 
           $status = Registration::where("id", '=', $user->id)->where('status', '=', 1)->count();
-          if($parent_id==$user->id)
-            $status=1;
+          if ($parent_id == $user->id)
+            $status = 1;
           $flush_amt = 0;
           // Now Check Matching Amount less then investment amount 
           $investment = Investment::getUserInvestmentAmount($user->id);
           $package = DB::table("packages")->where("amount", '=', $investment)->first();
           $capping_daily = 0;
-          if(!empty($package))
+          if (!empty($package))
             $capping_daily = $package->capping_daily;
-          if ($match_per > $capping_daily && $user->id != $parent_id && $investment>0) {
+          if ($match_per > $capping_daily && $user->id != $parent_id && $investment > 0) {
             // Match:500.5 || Investment: 400
             //flush amt = 500.5 - 400 = 100.5
             //Match Amt = Matching Amt - Flush Amt = 500.5 - 100.5 = 400
@@ -150,8 +150,6 @@ class MatchingController extends Controller
     }
     return view('user-auth.roi');
   }
-
-<<<<<<< HEAD
   public function view_matching(Request $request)
   {
     if ($request->ajax()) {
@@ -168,24 +166,5 @@ class MatchingController extends Controller
     }
     return view('user-auth.view_matching');
   }
-=======
-    public function view_matching(Request $request)
-{
-    if ($request->ajax()) {
-        $user = Session::get('user');
-        $userreferral = DB::table("registration")
-            ->join('matching', 'matching.user_id', '=', 'registration.id')
-            ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
-            ->where('registration.id', $user['id'])
-            ->where('matching.status', 1) // Add this line to filter by status
-            ->get();
 
-        return DataTables::of($userreferral)
-            ->addIndexColumn()
-            ->toJson();
-    }
-    return view('user-auth.view_matching');
-}
-
->>>>>>> ce9abe012c7306a4fea44228fe4822ed1558b26c
 }
