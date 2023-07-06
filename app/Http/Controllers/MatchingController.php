@@ -131,40 +131,4 @@ class MatchingController extends Controller
     }
     echo "SUCCESS";
   }
-
-
-  public function view_roi(Request $request)
-  {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-
-      $userreferral = DB::table("registration")
-        ->join('roi', 'roi.user_id', '=', 'registration.id')
-        ->select('registration.userid', 'roi.amount_per_day', 'roi.created_at')
-        ->where('registration.id', $user['id'])
-        ->get();
-
-      return DataTables::of($userreferral)
-        ->addIndexColumn()
-        ->toJson();
-    }
-    return view('user-auth.roi');
-  }
-  public function view_matching(Request $request)
-  {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-      $userreferral = DB::table("registration")
-        ->join('matching', 'matching.user_id', '=', 'registration.id')
-        ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
-        ->where('registration.id', $user['id'])
-        ->get();
-
-      return DataTables::of($userreferral)
-        ->addIndexColumn()
-        ->toJson();
-    }
-    return view('user-auth.view_matching');
-  }
-
 }

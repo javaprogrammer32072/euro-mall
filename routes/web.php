@@ -70,8 +70,13 @@ Route::group(["prefix" => "empanel", "middleware" => "CheckUser"], function () {
   // Route::get("booster-income", [MatchingController::class, "boosterIncome"])->name('view_matching');
 
   //View Roi && Matching Income 
-  Route::get("view-roi", [MatchingController::class, "view_roi"])->name('view_roi');
-  Route::get("view-matching", [MatchingController::class, "view_matching"])->name('view_matching');
+  Route::get("view-roi", [UserDashboardController::class, "view_roi"])->name('view_roi');
+  Route::get("view-matching", [UserDashboardController::class, "view_matching"])->name('view_matching');
+
+
+  //view Booster income
+  Route::get("view-booster", [UserDashboardController::class, "view_booster"])->name('view_booster');
+
   
 });
 // Admin Panel Routes 
@@ -95,4 +100,5 @@ Route::get('bonanza/view', [BonanzaController::class, 'view_bonanza'])->name('vi
   //View Roi && Matching Income 
   Route::get("view-rois", [DashboardController::class, "view_rois"])->name('view_rois');
   Route::get("view-matchings", [DashboardController::class, "view_matchings"])->name('view_matchings');
+  Route::get("view_adminbooster", [DashboardController::class, "view_adminbooster"])->name('view_adminbooster');
 });

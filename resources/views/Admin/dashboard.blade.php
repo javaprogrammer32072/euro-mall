@@ -113,6 +113,23 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{{ url('/administrator/view_adminbooster') }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media align-items-center">
+                                    <div class="avatar avatar-icon avatar-lg avatar-gold">
+                                        <i class="fa fa-hand-peace"></i>
+                                    </div>
+                                    <div class="m-l-15">
+                                        <h2 class="m-b-0">{{ $booster_income }}</h2>
+                                        <p class="m-b-0 text-muted">Booster</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
         <!-- Content Wrapper END -->

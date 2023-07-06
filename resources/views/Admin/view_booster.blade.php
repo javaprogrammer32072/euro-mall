@@ -1,6 +1,6 @@
-@extends('layouts.user')
+@extends('layouts.app')
 @section('title')
-    MY View Matching
+    MY View Booster
 @endsection
 @section('content')
     <div class="page-container">
@@ -9,10 +9,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="page-header">
-                            <h2 class="header-title">My View Matching </h2>
+                            <h2 class="header-title">My View Booster </h2>
                             <div class="header-sub-title">
                                 <nav class="breadcrumb breadcrumb-dash">
-                                    <a href="{{ url('/empanel/dashboard') }}" class="breadcrumb-item"><i
+                                    <a href="{{ url('/administrator/dashboard') }}" class="breadcrumb-item"><i
                                             class="anticon anticon-home m-r-5"></i>Home</a>
                                 </nav>
                             </div>
@@ -34,12 +34,8 @@
                                     <tr>
                                         <th>S.NO</th>
                                         <th>USERID</th>
-                                        <th>LEFT BUSS</th>
-                                        <th>RIGHT BUSS</th>
-                                        <th>AMOUNT</th>
-                                        <th>CARRY AMOUNT</th>
-                                        <th>FLUSH AMOUNT</th>
-                                        <th>CARRY SIDE</th>
+                                        <th>INCOME</th>
+                                        <th>STATUS</th>
                                         <th>DATE</th>
                                     </tr>
                                 </thead>
@@ -59,7 +55,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('view_matching') }}",
+                        url: "{{ route('view_adminbooster') }}",
                         dataSrc: 'data'
                     },
                     dom: 'Blfrtip',
@@ -77,28 +73,8 @@
                             name: 'userid'
                         },
                         {
-                            data: 'left_buss',
-                            name: 'left_buss'
-                        },
-                        {
-                            data: 'right_buss',
-                            name: 'right_buss'
-                        },
-                        {
-                            data: 'amount',
-                            name: 'amount'
-                        },
-                        {
-                            data: 'carry_amount',
-                            name: 'carry_amount'
-                        },
-                        {
-                            data: 'flush_amt',
-                            name: 'flush_amt'
-                        },
-                        {
-                            data: 'carry_side',
-                            name: 'carry_side'
+                            data: 'income',
+                            name: 'income'
                         },
                         {
                             data: 'status',
@@ -131,6 +107,9 @@
                             orderable: true,
                             searchable: true
                         }
+
+
+
                     ],
                     order: [
                         [1, 'asc']
