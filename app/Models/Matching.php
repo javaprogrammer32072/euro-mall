@@ -10,6 +10,7 @@ use App\Models\Investment;
 use App\Models\ROI;
 use Carbon\Carbon;
 use App\Models\BoosterIncome;
+use App\Models\Log;
 
 use DB;
 
@@ -97,6 +98,7 @@ class Matching extends Model
 
       // Now De-Active Previous Investment 
       $in = Investment::where("user_id",'=',$user_id)->update(['status'=>2]);
+      Log::createLog('',"Re-Topup",json_encode(['total_income'=>$total_income,"investment"=>$inv,"max_per"=>$matching_income."00%"]),"Excid $total_income Rupees income. & De-Active User and Deactive Current Plan.");
     }
   }
 

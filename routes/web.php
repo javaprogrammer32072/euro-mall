@@ -12,6 +12,9 @@ use App\Http\Controllers\MatchingController;
 Route::get('/', function () {
   return view('frontend.index');
 });
+Route::get("/queue",function(){
+  Artisan::call("queue-work");
+});
 //Frontend Routes 
 Route::get("/about_us", [FrontController::class, "about_us"])->name('about_us');
 Route::get("/all_product", [FrontController::class, "all_product"])->name('all_product');

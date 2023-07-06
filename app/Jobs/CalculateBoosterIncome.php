@@ -10,10 +10,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Investment;
 use App\Models\Registration;
-use App\Models\ROI;
-use App\Models\Matching;
+use App\Models\Log;
 use App\Models\BoosterIncome;
-use DB;
 use Carbon\Carbon;
 
 
@@ -61,6 +59,8 @@ class CalculateBoosterIncome implements ShouldQueue
             $u = Registration::find($p_user->id);
             $u->roi = 2;
             $u->save();
+            
+            Log::createLog('','',"Booster Income","$one_day_direct Direct Referral 24 Hours Generate X2 ROI Income");
         }
         // Step 4: Check Condidition 5 days 7 referral
         if ($five_day_direct >= 7) {
@@ -73,6 +73,8 @@ class CalculateBoosterIncome implements ShouldQueue
             $b->user_id = $p_user->id;
             $b->income = $inv;
             $b->save();
+
+            Log::createLog('','',"Booster Income","$five_day_direct Direct Referral 5 Days Generate X2 ROI Income & Return Investment $inv Rupees ");
         }
         echo "SUCCESS";
     }

@@ -11,30 +11,21 @@ use App\Models\Registration;
 use Mail; 
 use Hash;
 use Illuminate\Support\Str;
+use App\Models\Log;
   
 class ForgotPasswordController extends Controller
 {
-      /**
-       * Write code on Method
-       *
-       * @return response()
-       */
       public function showForgetPasswordForm()
       {
          return view('forgetpassword.forgetPassword');
       }
   
-      /**
-       * Write code on Method
-       *
-       * @return response()
-       */
       public function submitForgetPasswordForm(Request $request)
       {
           $request->validate([
               'email' => 'required|email|exists:registration',
           ]);
-  
+          $log = Log::createLog('',"Forgot Password",json_encode($request->all()),'We have e-mailed your password reset link!');
           $token = Str::random(64);
             
           DB::table('password_resets')->insert([
@@ -71,7 +62,7 @@ class ForgotPasswordController extends Controller
                 'password' => 'required|string|min:8|confirmed',
                 'password_confirmation' => 'required'
             ]);
-    
+            $log = Log::createLog('',"Reset Password",json_encode($request->all()),'Password Reset Pending');
             $updatePassword = DB::table('password_resets')->where(['email' => $request->email, 'token' => $request->token ]) ->first();
             $data =  DB::table('password_resets')->where('email', $request->email)->first();
             $date = Carbon::parse($data->created_at);
@@ -79,9 +70,10 @@ class ForgotPasswordController extends Controller
 
             $timeDifference = $now->diffInMinutes($date);
 
-            if ($timeDifference > 10) {
+            if ($timeDifference > 10) 
+            {
                 DB::table('password_resets')->where(['email'=> $request->email])->delete();
-                return back()->withInput()->with('error', 'Link Has Been Expired!');
+                return back()->withInput()->with('error', 'Link has Been Expired!');
             } else 
             {
                 // Proceed with the code here
@@ -91,9 +83,10 @@ class ForgotPasswordController extends Controller
         
                 $user = Registration::where('email', $request->email)
                     ->update(['password' => Hash::make($request->password)]);
+                $user_id = Registration::where("email",'=',$request->email)->first()->id;
         
                 DB::table('password_resets')->where(['email'=> $request->email])->delete();
-        
+                Log::updateLog($log,"Your password has been changed!",$user_id);
                 return redirect('/signin')->with('success', 'Your password has been changed!');
             }
         }

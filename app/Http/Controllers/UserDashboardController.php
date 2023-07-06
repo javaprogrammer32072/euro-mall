@@ -14,6 +14,7 @@ use App\Models\Withdraw;
 use App\Models\ROI;
 use App\Models\Matching;
 use App\Models\BoosterIncome;
+use App\Models\Log;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,7 @@ class UserDashboardController extends Controller
       "user_id" => "required",
       "email" => "required",
     ]);
+    $log = Log::createLog('',"Change Transaction Send OTP",json_encode($req->all()),'OTP Send Successfully, Please Check Your Email.');
     $userid = $req->user_id;
     $email = $req->email;
     if (!empty($userid)) {
@@ -82,19 +84,23 @@ class UserDashboardController extends Controller
       "password" => "required|min:8",
       "password_confirmation" => "required|same:password",
     ]);
+    $log = Log::createLog('',"Change Transaction Password",json_encode($req->all()),'');
     $updatePassword = Registration::where(['otp' => $req->otp])->first();
     if (!empty($updatePassword)) {
       $date = Carbon::parse($updatePassword->expire_time);
       $now = Carbon::now();
       $timeDifference = $now->diffInMinutes($date);
       if ($timeDifference > 15) {
-        return back()->withInput()->with('error', 'OTP Has Been Expired!');
+        Log::update($log,"OTP has been Expired!");
+        return back()->withInput()->with('error', 'OTP has been Expired!');
       } else {
+        Log::update($log,"Transaction Password Change Successfully !.");
         Registration::where(['userid' => $updatePassword->userid])->update(['transaction_password' => Hash::make($req->password)]);
         $req->session()->flash("success", "Transaction Password Change Successfully !.");
         return redirect("/empanel/dashboard");
       }
     } else {
+      Log::update($log,"Invalid OTP.");
       $req->session()->flash('error', 'Please Enter Correct OTP.');
       return redirect()->back();
     }
@@ -144,7 +150,6 @@ class UserDashboardController extends Controller
         ->join('investment', 'investment.user_id', '=', 'registration.id')
         ->select('registration.userid', 'investment.amount', 'investment.status', 'investment.created_at')
         ->where('registration.id', $user['id'])
-         ->where('investment.status', 1)
         ->get();
 
       return DataTables::of($userreferral)
@@ -205,7 +210,9 @@ class UserDashboardController extends Controller
     $password = $req->post("password");
     $user = $req->session()->get("user");
     $check_user = Registration::where("userid", $user['userid'])->first();
+    $log = Log::createLog('',"Invest Amount",json_encode($req->all()),'');
     if (!Hash::check($password, $check_user->transaction_password)) {
+      Log::updateLog($log,"Incorrect Transaction Password");
       $req->session()->flash("error", "Incorrect Transaction Password");
       return redirect("/empanel/dashboard");
     } 
@@ -220,6 +227,7 @@ class UserDashboardController extends Controller
       {
         if($p_inv->amount>$amount)
         {
+          Log::updateLog($log,"Please Invest greater then or equal to $p_inv->amount ");
           $req->session()->flash("error", "Please Invest greater then or equal to $p_inv->amount ");
           return redirect("/empanel/dashboard");
         }
@@ -232,9 +240,11 @@ class UserDashboardController extends Controller
       if ($inv->save()) {
         // Now Active user with status 1
         Registration::where("userid", $user['userid'])->update(['status' => 1]);
+        Log::updateLog($log,"Successfully Invested Amount");
         $req->session()->flash("success", "Successfully Invested Amount");
         return redirect("/empanel/dashboard");
       } else {
+        Log::updateLog($log,"Something Went Wrong!");
         $req->session()->flash("error", "Something Went Wrong!");
         return redirect("/empanel/dashboard");
       }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Registration;
-use DB;
+use App\Models\Log;
 use Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -26,12 +26,14 @@ class RegistrationController extends Controller
       "lname" => "required|min:3|max:50",
       // "email" => "required|email|unique:registration,email",
       // "phone" => "required|min:10|max:10|unique:registration,phone",
+      "email" => "required|email",
+      "phone" => "required|min:10|max:10",
       "password" => "required|min:8",
       "confirmPassword" => "required|same:password",
       "referral_code" => "required",
       "agreement" => "required"
     ]);
-
+    $log = Log::createLog('',"User Registration",json_encode($req->all()),'Registration Pending');
     $res = Registration::createUser($req->all());
     $lastInsertId = $res['id'];
     $email = $res['email'];
@@ -47,6 +49,7 @@ class RegistrationController extends Controller
         $message->to($emailToSend);
         $message->subject('Mail from EuroMall');
       });
+      Log::updateLog($log,"User Created Successfully");
       $req->session()->flash("success", "User Created Successfully, Please Verify Email.");
       return redirect("/otp");
 
@@ -101,20 +104,21 @@ class RegistrationController extends Controller
       "email" => "required|email",
       "phone" => "required|min:10|max:10",
     ]);
-
+    Log::createLog('',"Update Profile",json_encode($req->all()),'Profile Successfully updated.');
     $res = Registration::editprofile($req->all());
     if (!empty($res)) {
-      $req->session()->flash("success", "Edit User Profile Successfully.");
+      $req->session()->flash("success", "Profile Successfully updated.");
       return redirect("/empanel/edit-profile");
     }
   }
-  function login(request $req)
+  function login()
   {
     return view("user-auth.login");
   }
 
   public function processLogin(Request $request)
   {
+    $log = Log::createLog('',"Login",json_encode($request->all()),'Login Failed');
     $rule = array(
       'user_id' => 'required',
       'password' => 'required'
@@ -148,12 +152,10 @@ class RegistrationController extends Controller
           'email' => $user->email,
           "id" => $user->id,
         ];
-
+        Log::updateLog($log,json_encode($data),$user->id);
         Session::put('user', $data);
         $message = 'Successfully login!';
         return redirect()->to('/empanel/dashboard')->with('success', $message);
-        // $message = 'Successfully login!';
-        // return redirect()->back()->with('success', $message)->withInput();
       }
     } else {
       $message = 'username or password is incorrect';
@@ -164,9 +166,9 @@ class RegistrationController extends Controller
   //create logout function 
   public function logout(): RedirectResponse
   {
+    Log::createLog('',"Logout","",'Successfully logged out.');
     Session::flush();
     // Perform any other necessary cleanup or logout actions
-
     $message = 'Successfully Logout!';
     return redirect('/')->with('success', $message);
   }

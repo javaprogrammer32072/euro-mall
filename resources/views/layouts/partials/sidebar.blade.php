@@ -26,9 +26,6 @@
                       <li class="nav-item ">
                           <a href="{{ url('/empanel/my_tree') }}"><span>My Team Tree</span> </a>
                       </li>
-                      <li class="nav-item ">
-                          <a href="#"><span>My Team Tree</span> </a>
-                      </li>
                   </ul>
               </li>
               {{-- <li class="nav-item">
@@ -57,15 +54,15 @@
                       {{-- <li class="nav-item ">
                           <a href="#"><span>Coin History</span> </a>
                       </li> --}}
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="{{ url('/empanel/view-roi') }}"><span>ROI Income</span> </a>
-                      </li>
+                      </li> --}}
                       {{-- <li class="nav-item ">
                           <a href="#"><span>Direct Income</span> </a>
                       </li> --}}
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="{{ url('/empanel/today-matching') }}"><span>Matching Income</span> </a>
-                      </li>
+                      </li> --}}
                       {{-- <li class="nav-item ">
                           <a href="#"><span>Team Income</span> </a>
                       </li> --}}

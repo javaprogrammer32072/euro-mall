@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
-use Yajra\DataTables\Facades\DataTables;
+use App\Models\Log;
 use App\Models\Investment;
 use App\Models\Registration;
 use App\Models\ROI;
@@ -87,6 +86,9 @@ class MatchingController extends Controller
           $match->status = $status;
           $match->save();
 
+          if($match_per>0)
+            Log::createLog('',"Matching",json_encode(['left_buss'=>$today_left_buss,"right_buss"=>$today_right_buss,"carry"=>$carry_amt,"flush_amt"=>$flush_amt]),"Generate $match_per Rupees Matching income.");
+
         }
         // echo "<pre>";
         // echo $today_left_buss;
@@ -125,10 +127,12 @@ class MatchingController extends Controller
             if($roi>1)
               $amount = $amount * $roi;
               
-            $roi = new ROI();
-            $roi->user_id = $user->id;
-            $roi->amount_per_day = $amount;
-            $roi->save();
+            $r = new ROI();
+            $r->user_id = $user->id;
+            $r->amount_per_day = $amount;
+            $r->save();
+
+            Log::createLog('',"ROI",json_encode(['Invest_amount'=>$inv,"ROI"=>$roi,"roi_per"=>$package->roi_per]),"Generate $amount Rupees ROI income.");
           }
         }
       }
@@ -136,7 +140,7 @@ class MatchingController extends Controller
     echo "SUCCESS";
   }
   /* This Fuction Check User Account Retopup status */
-  function retopupStatusCheck(Requ7est $req)
+  function retopupStatusCheck(Request $req)
   {
     // Now Check User One By One Income Amount if income excid 300% then de-active those users.
     $users = DB::table("registration")->select("id")->get();
@@ -156,6 +160,7 @@ class MatchingController extends Controller
     DB::table("roi")->truncate();
     DB::table("withdraw")->truncate();
     Registration::where('id','>',0)->update(['status'=>0,'otp'=>0,"roi"=>1]);
+    Log::createLog('',"Empty","Empty tables ","");
     echo "SUCCESS";
   }
 }
