@@ -12,6 +12,7 @@ use App\Models\Investment;
 use App\Models\Registration;
 use App\Models\ROI;
 use App\Models\Matching;
+use App\Models\BoosterIncome;
 use DB;
 use Carbon\Carbon;
 
@@ -62,12 +63,16 @@ class CalculateBoosterIncome implements ShouldQueue
             $u->save();
         }
         // Step 4: Check Condidition 5 days 7 referral
-        if ($five_day_direct >= 2) {
+        if ($five_day_direct >= 7) {
             $inv = Investment::where("user_id", '=', $p_user->id)->where("status", '=', 1)->sum("amount");
             $u = Registration::find($p_user->id);
             $u->roi = 2;
-            $u->booster_income = $inv;
             $u->save();
+
+            $b = new BoosterIncome();
+            $b->user_id = $p_user->id;
+            $b->income = $inv;
+            $b->save();
         }
         echo "SUCCESS";
     }

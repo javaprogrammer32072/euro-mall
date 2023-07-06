@@ -65,11 +65,12 @@ Route::group(["prefix" => "empanel", "middleware" => "CheckUser"], function () {
   Route::post("/add_withdraw", [UserDashboardController::class, "add_withdraw"])->name('add_withdraw');
   Route::post("invest-amount", [UserDashboardController::class, "investAmountPost"]);
   // Cron Part 
+  Route::get("retpopup-status",[MatchingController::class,"retopupStatusCheck"]);
   Route::get("today-matching", [MatchingController::class, "todayMatching"]);
   Route::get("today-roi", [MatchingController::class, "todayROI"]);
-  // Route::get("booster-income", [MatchingController::class, "boosterIncome"])->name('view_matching');
+  Route::get("empty-records", [MatchingController::class, "emptyTables"]);
 
-  //View Roi && Matching Income 
+
   Route::get("view-roi", [MatchingController::class, "view_roi"])->name('view_roi');
   Route::get("view-matching", [MatchingController::class, "view_matching"])->name('view_matching');
   

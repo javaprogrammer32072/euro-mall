@@ -25,6 +25,7 @@ class UserDashboardController extends Controller
   {
     $user_session = $req->session()->get("user");
     $user = Registration::getUserDetails($user_session['userid']);
+    $package = DB::table("packages")->select("id",'amount')->get();
 
     $myTeam = My_team::my_team(); // Get the data from the My_team model
     $myReferral = My_referral::my_referral(); // Get the data from the My_referral model
@@ -32,7 +33,7 @@ class UserDashboardController extends Controller
     $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
     $roi = ROI::total_roi(); // Get the data from the ROI model
     $Matching = Matching::total_Matching(); // Get the data from the Matching model 
-    return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw", "roi", "Matching"));
+    return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw", "roi", "Matching",'package'));
   }
 
   function transaction_password(request $req)
@@ -203,7 +204,22 @@ class UserDashboardController extends Controller
     if (!Hash::check($password, $check_user->transaction_password)) {
       $req->session()->flash("error", "Incorrect Transaction Password");
       return redirect("/empanel/dashboard");
-    } else {
+    } 
+    else 
+    {
+      // Now De-Active Previous Investment 
+      $in = Investment::where("user_id",'=',$check_user->id)->update(['status'=>2]);
+
+      // Now Find Previous Investment of user
+      $p_inv = Investment::where("user_id",'=',$check_user->id)->where("status",'=',2)->orderBy("id",'DESC')->first();
+      if(!empty($p_inv))
+      {
+        if($p_inv->amount>$amount)
+        {
+          $req->session()->flash("error", "Please Invest greater then or equal to $p_inv->amount ");
+          return redirect("/empanel/dashboard");
+        }
+      }
       // Now Save Data Into Investment Table 
       $inv = new Investment();
       $inv->amount = $amount;

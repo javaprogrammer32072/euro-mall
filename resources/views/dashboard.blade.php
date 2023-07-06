@@ -180,12 +180,16 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Invest Amount</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" name="amount"
-                                    placeholder="Amount">
+                                <select class="form-control" name="amount" required>
+                                    <option value="">Select Plan</option>
+                                    @foreach($package as $p)
+                                        <option>{{$p->amount}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Transaction Password</label>
-                                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                                <input type="password" class="form-control" required name="password" id="exampleInputPassword1">
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Submit</button>

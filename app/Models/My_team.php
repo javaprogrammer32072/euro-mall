@@ -15,8 +15,7 @@ class My_team extends Model
     public static function my_team()
     {
         $user = Session::get('user');
-        $userReferral = Registration::where('userid', $user['userid'])->first();
-        $searchValue = $userReferral['id'];
+        $searchValue = $user['id'];
         $data = Registration::select('userid', 'first_name', 'last_name', 'phone', 'status', 'position')
             ->whereRaw('FIND_IN_SET("' . $searchValue . '", parent_id)')
             ->get();

@@ -109,7 +109,6 @@ class MatchingController extends Controller
 
   function todayROI(Request $req)
   {
-    $roi_income_per = env("DAILY_ROI_INCOME_PER");
     $users = DB::table("registration")->select("id")->get();
     // Now Fire a loop and calculate Matching for All Users 
     foreach ($users as $key => $user) {
@@ -121,6 +120,11 @@ class MatchingController extends Controller
           $package = DB::table("packages")->where("amount", '=', $inv)->first();
           if (!empty($package)) {
             $amount = $inv * $package->roi_per / 100;
+            // Now Get User ROI Duuble 
+            $roi = Registration::where("id",'=',$user->id)->first()->roi;
+            if($roi>1)
+              $amount = $amount * $roi;
+              
             $roi = new ROI();
             $roi->user_id = $user->id;
             $roi->amount_per_day = $amount;
@@ -133,38 +137,29 @@ class MatchingController extends Controller
   }
 
 
-  public function view_roi(Request $request)
+
+  /* This Fuction Check User Account Retopup status */
+  function retopupStatusCheck(Request $req)
   {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-
-      $userreferral = DB::table("registration")
-        ->join('roi', 'roi.user_id', '=', 'registration.id')
-        ->select('registration.userid', 'roi.amount_per_day', 'roi.created_at')
-        ->where('registration.id', $user['id'])
-        ->get();
-
-      return DataTables::of($userreferral)
-        ->addIndexColumn()
-        ->toJson();
+    // Now Check User One By One Income Amount if income excid 300% then de-active those users.
+    $users = DB::table("registration")->select("id")->get();
+    foreach ($users as $key => $user) 
+    {
+      Matching::retopupUserStatus($user->id);
     }
-    return view('user-auth.roi');
+    echo "SUCCESS";
   }
-  public function view_matching(Request $request)
-  {
-    if ($request->ajax()) {
-      $user = Session::get('user');
-      $userreferral = DB::table("registration")
-        ->join('matching', 'matching.user_id', '=', 'registration.id')
-        ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.created_at')
-        ->where('registration.id', $user['id'])
-        ->get();
 
-      return DataTables::of($userreferral)
-        ->addIndexColumn()
-        ->toJson();
-    }
-    return view('user-auth.view_matching');
+  //This Function Truncater some table Data
+  public function emptyTables(Request $req)
+  {
+    DB::table("matching")->truncate();
+    DB::table("investment")->truncate();
+    DB::table("booster_income")->truncate();
+    DB::table("roi")->truncate();
+    DB::table("withdraw")->truncate();
+    Registration::where('id','>',0)->update(['status'=>0,'otp'=>0,"roi"=>1]);
+    echo "SUCCESS";
   }
 
 }
