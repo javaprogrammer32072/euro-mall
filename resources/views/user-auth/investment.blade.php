@@ -82,9 +82,9 @@
                             name: 'status',
                             render: function(data, type, row, meta) {
                                 if (data == 1) {
-                                    return '<span style="color: green;">Active</span>';
+                                    return '<span style="color: green;">Current Plan</span>';
                                 } else if (data == 0) {
-                                    return '<span style="color: red;">Deactivate</span>';
+                                    return '<span style="color: red;">Plan Expired!</span>';
                                 } else {
                                     return '';
                                 }

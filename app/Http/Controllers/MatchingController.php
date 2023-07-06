@@ -135,11 +135,8 @@ class MatchingController extends Controller
     }
     echo "SUCCESS";
   }
-
-
-
   /* This Fuction Check User Account Retopup status */
-  function retopupStatusCheck(Request $req)
+  function retopupStatusCheck(Requ7est $req)
   {
     // Now Check User One By One Income Amount if income excid 300% then de-active those users.
     $users = DB::table("registration")->select("id")->get();
@@ -161,5 +158,4 @@ class MatchingController extends Controller
     Registration::where('id','>',0)->update(['status'=>0,'otp'=>0,"roi"=>1]);
     echo "SUCCESS";
   }
-
 }

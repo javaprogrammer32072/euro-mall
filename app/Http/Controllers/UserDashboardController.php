@@ -13,6 +13,7 @@ use App\Models\Investment;
 use App\Models\Withdraw;
 use App\Models\ROI;
 use App\Models\Matching;
+use App\Models\BoosterIncome;
 use DB;
 use Mail;
 use Illuminate\Support\Facades\Validator;
@@ -33,7 +34,8 @@ class UserDashboardController extends Controller
     $withdraw = Withdraw::withdraw(); // Get the data from the withdraw model   
     $roi = ROI::total_roi(); // Get the data from the ROI model
     $Matching = Matching::total_Matching(); // Get the data from the Matching model 
-    return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw", "roi", "Matching",'package'));
+     $booster_income = BoosterIncome::booster_income(); // Get the data from the Matching model 
+    return view("dashboard", compact("user", "myTeam", "myReferral", "investment", "withdraw", "roi", "Matching","booster_income",'package'));
   }
 
   function transaction_password(request $req)
@@ -142,6 +144,7 @@ class UserDashboardController extends Controller
         ->join('investment', 'investment.user_id', '=', 'registration.id')
         ->select('registration.userid', 'investment.amount', 'investment.status', 'investment.created_at')
         ->where('registration.id', $user['id'])
+         ->where('investment.status', 1)
         ->get();
 
       return DataTables::of($userreferral)
@@ -160,6 +163,7 @@ class UserDashboardController extends Controller
       $data = DB::table('withdraw')
         ->select('user_id', 'amount', 'trans_charge', 'remarks', 'status', 'created_at')
         ->where('user_id', $userreferral['userid'])
+        ->where('status', 1)
         ->get();
       return DataTables::of($data)
         ->addIndexColumn()
@@ -236,4 +240,58 @@ class UserDashboardController extends Controller
       }
     }
   }
+public function view_roi(Request $request)
+  {
+    if ($request->ajax()) {
+      $user = Session::get('user');
+
+      $userreferral = DB::table("registration")
+        ->join('roi', 'roi.user_id', '=', 'registration.id')
+        ->select('registration.userid', 'roi.amount_per_day', 'roi.created_at')
+        ->where('registration.id', $user['id'])
+        ->get();
+
+      return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('user-auth.roi');
+  }
+  public function view_matching(Request $request)
+  {
+    if ($request->ajax()) {
+      $user = Session::get('user');
+      $userreferral = DB::table("registration")
+        ->join('matching', 'matching.user_id', '=', 'registration.id')
+        ->select('registration.userid', 'matching.user_id', 'matching.left_buss', 'matching.right_buss', 'matching.amount', 'matching.carry_amount', 'matching.flush_amt', 'matching.carry_side', 'matching.status', 'matching.created_at')
+        ->where('registration.id', $user['id'])
+         ->where('matching.status', 1)
+        ->get();
+
+      return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('user-auth.view_matching');
+  }
+  
+  public function view_booster(Request $request)
+  {
+    if ($request->ajax()) {
+      $user = Session::get('user');
+      $userreferral = DB::table("registration")
+        ->join('booster_income', 'booster_income.user_id', '=', 'registration.id')
+        ->select('registration.userid', 'booster_income.user_id', 'booster_income.income','booster_income.status','booster_income.created_at')
+        ->where('registration.id', $user['id'])
+        ->where('booster_income.status', 1)
+        ->get();
+
+      return DataTables::of($userreferral)
+        ->addIndexColumn()
+        ->toJson();
+    }
+    return view('user-auth.view_booster');
+  }
+
+
 }
