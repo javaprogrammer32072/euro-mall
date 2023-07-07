@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="m-l-15">
                                         <h2 class="m-b-0">{{ $My_team }}</h2>
-                                        <p class="m-b-0 text-muted">My Team</p>
+                                        <p class="m-b-0 text-muted">Team</p>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="m-l-15">
                                         <h2 class="m-b-0">{{ $My_referral }}</h2>
-                                        <p class="m-b-0 text-muted">My Referral</p>
+                                        <p class="m-b-0 text-muted">Referral</p>
                                     </div>
                                 </div>
                             </div>

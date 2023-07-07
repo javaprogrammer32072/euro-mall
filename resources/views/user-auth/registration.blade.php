@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JUST CASE 24</title>
+    <title>Euro Malls</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png">
+    <link rel="shortcut icon" href="{{ URL::asset('assets/images/logo/favicon.png') }}">
 
     <!-- page css -->
 
     <!-- Core css -->
-    <link href="assets/css/app.min.css" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/app.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                             <div class="col-md-8 col-lg-7 col-xl-6 mx-auto">
                                 <h2>Sign Up</h2>
                                 <p class="m-b-30">Create your account to get access</p>
-                                <form action="{{ url('signup') }}" method="POST">
+                                <form action="{{ url('signup') }}" method="POST" id="form-validation">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
@@ -66,6 +66,7 @@
                                                 <label class="font-weight-semibold" for="userName">Last Name:</label>
                                                 <input type="text" class="form-control" name="lname" id="lname"
                                                     placeholder="Username">
+
                                             </div>
                                             <p class="text-danger">{{ $errors->first('lname') }}</p>
                                         </div>
@@ -79,7 +80,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="phone">Phone:</label>
-                                        <input type="number" class="form-control" id="phone"
+                                        <input type="text" class="form-control" id="phone"
                                             placeholder="Phone Number" name="phone">
                                         <p class="text-danger">{{ $errors->first('phone') }}</p>
                                     </div>
@@ -98,8 +99,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold" for="referral_code">Referral Code:</label>
-                                        <input type="text" class="form-control form-control-plaintext" readonly value="{{Request::get("ref")}}" id="referral_code"
-                                            name="referral_code" placeholder="Referral Code">
+                                        <input type="text" class="form-control form-control-plaintext" readonly
+                                            value="{{ Request::get('ref') }}" id="referral_code" name="referral_code"
+                                            placeholder="Referral Code">
                                         <p class="text-danger">{{ $errors->first('referral_code') }}</p>
                                     </div>
                                     <div class="form-group">
@@ -125,13 +127,58 @@
     </div>
 
     <!-- Core Vendors JS -->
-    <script src="assets/js/vendors.min.js"></script>
+    <script src="{{ URL::asset('assets/js/vendors.min.js') }}"></script>
 
     <!-- page js -->
 
     <!-- Core JS -->
-    <script src="assets/js/app.min.js"></script>
+    <script src="{{ URL::asset('assets/js/app.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script>
+        $.validator.addMethod("alphaOnly", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+        }, "Please enter alphabetic characters only.");
 
+        $("#form-validation").validate({
+            ignore: ':hidden:not(:checkbox)',
+            errorElement: 'label',
+            errorClass: 'is-invalid',
+            validClass: 'is-valid',
+            rules: {
+                fname: {
+                    required: true,
+                    minlength: 3,
+                    alphaOnly: true
+                },
+                lname: {
+                    required: true,
+                    minlength: 3,
+                    alphaOnly: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: {
+                    required: true,
+                    minlength: 10,
+                    digits: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                confirmPassword: {
+                    required: true,
+                    minlength: 8,
+                    equalTo: '#password'
+                },
+                agreement: {
+                    required: true
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

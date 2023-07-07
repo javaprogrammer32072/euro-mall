@@ -65,7 +65,7 @@ class RegistrationController extends Controller
   }
 
 
-  function otp_check(Request $req)
+ function otp_check(Request $req)
   {
     $req->validate([
       "otp" => "required|min:6|max:6"
@@ -78,8 +78,19 @@ class RegistrationController extends Controller
       if ($timeDifference > 15) {
         return back()->withInput()->with('error', 'OTP Has Been Expired!');
       } else {
-        Registration::where(['userid' => $updatePassword->userid])->update(['is_verify' => 1]);
-        $req->session()->flash("success", "OTP Verfied Successfully !.");
+       Registration::where(['userid' => $updatePassword->userid])->update(['is_verify' => 1]);
+       $updatedUser = Registration::where('userid', $updatePassword->userid)->first(['userid', 'first_name','last_name','email']);
+        // Access the user ID and name from the updated record
+        $userId = $updatedUser->userid;
+        $first_name = $updatedUser->first_name;
+        $last_name = $updatedUser->last_name;
+        $emailToSend = $updatedUser->email;
+         Mail::send('emails.registration_deatils', ['userId'=>$userId,'first_name' =>$first_name,'last_name'=>$last_name], function ($message) use ($emailToSend) {
+        $message->to($emailToSend);
+        $message->subject('Mail from EuroMall');
+      }); 
+
+        $req->session()->flash("success", "OTP Verfied Successfully, Please Check Your Email. !.");
         return redirect("/signin");
       }
     } else {

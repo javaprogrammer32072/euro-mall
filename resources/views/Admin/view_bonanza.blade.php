@@ -142,7 +142,7 @@
                                     var day = ('0' + date.getDate()).slice(-2);
                                     var month = ('0' + (date.getMonth() + 1)).slice(-2);
                                     var year = date.getFullYear();
-                                    var formattedDate = day + '/' + month + '/' + year;
+                                    var formattedDate = day + '-' + month + '-' + year;
                                     return formattedDate;
                                 }
 

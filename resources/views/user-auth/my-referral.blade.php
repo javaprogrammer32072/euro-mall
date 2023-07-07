@@ -86,8 +86,7 @@
                             name: 'position'
                         },
                         {
-                            data: 'total_investment',
-                            name: '',
+
                             orderable: false,
                             render: function(data, type, row) {
                                 return data ? data : '0';

@@ -277,7 +277,6 @@ public function view_roi(Request $request)
         ->where('registration.id', $user['id'])
          ->where('matching.status', 1)
         ->get();
-
       return DataTables::of($userreferral)
         ->addIndexColumn()
         ->toJson();

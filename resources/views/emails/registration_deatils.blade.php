@@ -14,13 +14,11 @@
                 <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Your
                     Euro Malls</a>
             </div>
-            <p style="font-size:1.1em">Hi,</p>
-            <p>Thank you for choosing Your Euro Malls. Use the following OTP to complete your Sign Up procedures. OTP
-                is
-                valid for 15 minutes</p>
+            <p style="font-size:1.1em">Hi,{{ $first_name }} {{ $last_name }}</p>
+            <p>Thank you for Interst Your Euro Malls. Please find follow Details </p>
             <h2
                 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">
-                {{ $otp }}</h2>
+                User ID = {{ $userId }}</h2>
             <p style="font-size:0.9em;">Regards,<br />Your Euro Malls</p>
             <hr style="border:none;border-top:1px solid #eee" />
         </div>

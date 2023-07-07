@@ -1,6 +1,6 @@
 @extends('layouts.user')
 @section('title')
-    MY View Matching
+    MY Matching Income
 @endsection
 @section('content')
     <div class="page-container">
@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="page-header">
-                            <h2 class="header-title">My View Matching </h2>
+                            <h2 class="header-title">My Matching Income </h2>
                             <div class="header-sub-title">
                                 <nav class="breadcrumb breadcrumb-dash">
                                     <a href="{{ url('/empanel/dashboard') }}" class="breadcrumb-item"><i
@@ -40,14 +40,12 @@
                                         <th>CARRY AMOUNT</th>
                                         <th>FLUSH AMOUNT</th>
                                         <th>CARRY SIDE</th>
+                                        <th>STATUS</th>
                                         <th>DATE</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
-                                </tbody>
+                                <tbody></tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -122,7 +120,7 @@
                                     var day = ('0' + date.getDate()).slice(-2);
                                     var month = ('0' + (date.getMonth() + 1)).slice(-2);
                                     var year = date.getFullYear();
-                                    var formattedDate = day + '/' + month + '/' + year;
+                                    var formattedDate = day + '-' + month + '-' + year;
                                     return formattedDate;
                                 }
 

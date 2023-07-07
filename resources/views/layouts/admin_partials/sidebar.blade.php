@@ -23,9 +23,9 @@
                       <li class="nav-item ">
                           <a href="{{ url('/administrator/my_referrals') }}"><span>My Referral</span> </a>
                       </li>
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="{{ url('/administrator/my_trees') }}"><span>My Team Tree</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="#"><span>My Team Tree</span> </a>
                       </li>
@@ -62,21 +62,21 @@
                       <span class="arrow"><i class="arrow-icon"></i> </span>
                   </a>
                   <ul class="dropdown-menu">
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Coin History</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/administrator/view-rois') }}"><span>ROI Income</span> </a>
                       </li>
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Direct Income</span> </a>
-                      </li>
-                      <li class="nav-item ">
+                      </li> --}}
+                      {{-- <li class="nav-item ">
                           <a href="{{ url('/administrator/today-matchings') }}"><span>Matching Income</span> </a>
-                      </li>
-                      <li class="nav-item ">
+                      </li> --}}
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Team Income</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/administrator/view-matchings') }}"><span>Matching Income</span> </a>
                       </li>
@@ -93,9 +93,9 @@
                       <span class="arrow"><i class="arrow-icon"></i> </span>
                   </a>
                   <ul class="dropdown-menu">
-                      <li class="nav-item ">
+                      {{-- <li class="nav-item ">
                           <a href="#"><span>Add Fund List</span> </a>
-                      </li>
+                      </li> --}}
                       <li class="nav-item ">
                           <a href="{{ url('/administrator/investments') }}"><span>Investment</span> </a>
                       </li>

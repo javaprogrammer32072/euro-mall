@@ -2,12 +2,12 @@
 <html lang="en">
 
 
-<!-- Mirrored from www.themenate.net/JUST CASE 24-bs/dist/login-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:39:30 GMT -->
+<!-- Mirrored from www.themenate.net/Euro Malls-bs/dist/login-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:39:30 GMT -->
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JUST CASE 24 - Admin Dashboard Template</title>
+    <title>Euro Malls - Admin Dashboard Template</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/logo/favicon.png">
@@ -27,7 +27,7 @@
                             <img src="assets/images/logo/logo-white.png" alt="">
                         </div>
                         <div>
-                            <h1 class="text-white m-b-20 font-weight-normal">Exploring JUST CASE 24</h1>
+                            <h1 class="text-white m-b-20 font-weight-normal">Exploring Euro Malls</h1>
                             <p class="text-white font-size-16 lh-2 w-80 opacity-08">Climb leg rub face on everything
                                 give attitude nap all day for under the bed. Chase mice attack feet but rub face on
                                 everything hopped up.</p>
@@ -98,6 +98,6 @@
 <!-- page js -->
 <!-- Core JS -->
 <script src="assets/js/app.min.js"></script>
-<!-- Mirrored from www.themenate.net/JUST CASE 24-bs/dist/login-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:39:36 GMT -->
+<!-- Mirrored from www.themenate.net/Euro Malls-bs/dist/login-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Jun 2023 09:39:36 GMT -->
 
 </html>

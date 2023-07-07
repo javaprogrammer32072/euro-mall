@@ -83,8 +83,10 @@
                             render: function(data, type, row, meta) {
                                 if (data == 1) {
                                     return '<span style="color: green;">Current Plan</span>';
-                                } else if (data == 0) {
+                                } else if (data == 2) {
                                     return '<span style="color: red;">Plan Expired!</span>';
+                                } else if (data == 0) {
+                                    return '<span style="color: #f3c332;">Plan Pending!</span>';
                                 } else {
                                     return '';
                                 }
@@ -99,7 +101,7 @@
                                     var day = ('0' + date.getDate()).slice(-2);
                                     var month = ('0' + (date.getMonth() + 1)).slice(-2);
                                     var year = date.getFullYear();
-                                    var formattedDate = day + '/' + month + '/' + year;
+                                    var formattedDate = day + '-' + month + '-' + year;
                                     return formattedDate;
                                 }
 
@@ -108,9 +110,6 @@
                             orderable: true,
                             searchable: true
                         }
-
-
-
                     ],
                     order: [
                         [1, 'asc']
